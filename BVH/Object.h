@@ -1,6 +1,8 @@
 #ifndef Object_h_
 #define Object_h_
 
+#include <Eigen/Dense>
+
 #include "IntersectionInfo.h"
 #include "Ray.h"
 #include "BBox.h"
@@ -13,13 +15,13 @@ struct Object {
     const = 0;
 
   //! Return an object normal based on an intersection
-  virtual Vector3 getNormal(const IntersectionInfo& I) const = 0;
+  virtual Eigen::Vector3f getNormal(const IntersectionInfo& I) const = 0;
 
   //! Return a bounding box for this object
   virtual BBox getBBox() const = 0;
 
   //! Return the centroid for this object. (Used in BVH Sorting)
-  virtual Vector3 getCentroid() const = 0;
+  virtual Eigen::Vector3f getCentroid() const = 0;
 };
 
 #endif
