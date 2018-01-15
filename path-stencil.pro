@@ -19,16 +19,14 @@ QMAKE_CXXFLAGS += -msse2
 SOURCES += main.cpp \
     pathtracer.cpp \
     scene/scene.cpp \
-    scene/primitive.cpp \
-    scene/ray.cpp \
     BVH/BBox.cpp \
-    BVH/BVH.cpp
+    BVH/BVH.cpp \
+    scene/camera.cpp \
+    scene/basiccamera.cpp
 
 HEADERS += \
     pathtracer.h \
     scene/scene.h \
-    scene/primitive.h \
-    scene/ray.h \
     BVH/BBox.h \
     BVH/BVH.h \
     BVH/IntersectionInfo.h \
@@ -65,4 +63,6 @@ HEADERS += \
     Eigen/StdVector \
     Eigen/SuperLUSupport \
     Eigen/SVD \
-    Eigen/UmfPackSupport
+    Eigen/UmfPackSupport \
+    scene/camera.h \
+    scene/basiccamera.h

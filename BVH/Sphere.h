@@ -4,18 +4,20 @@
 #include <cmath>
 #include "Object.h"
 
+#include <Eigen/Dense>
+
 //! For the purposes of demonstrating the BVH, a simple sphere
 struct Sphere : public Object {
-  Vector3 center; // Center of the sphere
+  Eigen::Vector3f center; // Center of the sphere
   float r, r2; // Radius, Radius^2
 
-  Sphere(const Vector3& center, float radius)
+  Sphere(const Eigen::Vector3f& center, float radius)
     : center(center), r(radius), r2(radius*radius) { }
 
   bool getIntersection(const Ray& ray, IntersectionInfo* I) const {
-    Vector3 s = center - ray.o;
-    float sd = s * ray.d;
-    float ss = s * s;
+    Eigen::Vector3f s = center - ray.o;
+    float sd = s.dot(ray.d);
+    float ss = s.dot(s);
 
     // Compute discriminant
     float disc = sd*sd - ss + r2;
@@ -29,15 +31,15 @@ struct Sphere : public Object {
     return true;
   }
 
-  Vector3 getNormal(const IntersectionInfo& I) const {
-    return normalize(I.hit - center);
+  Eigen::Vector3f getNormal(const IntersectionInfo& I) const {
+    return (I.hit - center).normalized();
   }
 
   BBox getBBox() const {
-    return BBox(center-Vector3(r,r,r), center+Vector3(r,r,r));
+    return BBox(center-Eigen::Vector3f(r,r,r), center+Eigen::Vector3f(r,r,r));
   }
 
-  Vector3 getCentroid() const {
+  Eigen::Vector3f getCentroid() const {
     return center;
   }
 
