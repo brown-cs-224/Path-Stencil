@@ -12,9 +12,9 @@ class Scene
 public:
     Scene(const BVH& m_bvh, BasicCamera camera);
 
-    static Scene load(QString filename);
+    static bool load(QString filename, Scene **scenePointer);
 
-    const BVH& getBVH();
+    const BVH& getBVH() const;
 
 private:
 

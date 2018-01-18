@@ -75,4 +75,5 @@ HEADERS += \
     util/CS123XmlSceneParser.h \
     scene/shape/Sphere.h \
     scene/shape/mesh.h \
-    scene/shape/triangle.h
+    scene/shape/triangle.h \
+    util/tiny_obj_loader.h

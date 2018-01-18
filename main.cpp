@@ -37,13 +37,19 @@ int main(int argc, char *argv[])
 
     QImage image(IMAGE_WIDTH, IMAGE_HEIGHT, QImage::Format_RGB32);
 
-    Scene scene = Scene::load(scenefile);
+    Scene *scene;
+    if(!Scene::load(scenefile, &scene)) {
+        std::cerr << "Error parsing scene file " << scenefile.toStdString() << std::endl;
+        a.exit(1);
+        return 1;
+    }
 
     PathTracer tracer(IMAGE_WIDTH, IMAGE_HEIGHT);
 
     QRgb *data = reinterpret_cast<QRgb *>(image.bits());
 
-    tracer.traceScene(data, scene);
+    tracer.traceScene(data, *scene);
+    delete scene;
 
     bool success = image.save(output);
     if(success) {
