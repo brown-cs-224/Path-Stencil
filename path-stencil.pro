@@ -1,4 +1,5 @@
 QT += gui
+QT += xml
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -22,7 +23,10 @@ SOURCES += main.cpp \
     BVH/BBox.cpp \
     BVH/BVH.cpp \
     scene/camera.cpp \
-    scene/basiccamera.cpp
+    scene/basiccamera.cpp \
+    util/CS123XmlSceneParser.cpp \
+    scene/shape/mesh.cpp \
+    scene/shape/triangle.cpp
 
 HEADERS += \
     pathtracer.h \
@@ -33,7 +37,6 @@ HEADERS += \
     BVH/Log.h \
     BVH/Object.h \
     BVH/Ray.h \
-    BVH/Sphere.h \
     BVH/Stopwatch.h \
     Eigen/Cholesky \
     Eigen/CholmodSupport \
@@ -65,4 +68,11 @@ HEADERS += \
     Eigen/SVD \
     Eigen/UmfPackSupport \
     scene/camera.h \
-    scene/basiccamera.h
+    scene/basiccamera.h \
+    util/CS123Common.h \
+    util/CS123ISceneParser.h \
+    util/CS123SceneData.h \
+    util/CS123XmlSceneParser.h \
+    scene/shape/Sphere.h \
+    scene/shape/mesh.h \
+    scene/shape/triangle.h

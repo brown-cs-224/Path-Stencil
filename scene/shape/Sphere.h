@@ -2,7 +2,7 @@
 #define Sphere_h_
 
 #include <cmath>
-#include "Object.h"
+#include <BVH/Object.h>
 
 #include <Eigen/Dense>
 
