@@ -76,4 +76,5 @@ HEADERS += \
     scene/shape/Sphere.h \
     scene/shape/mesh.h \
     scene/shape/triangle.h \
-    util/tiny_obj_loader.h
+    util/tiny_obj_loader.h \
+    BVH/vector3.h

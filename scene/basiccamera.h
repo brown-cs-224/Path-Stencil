@@ -6,6 +6,7 @@
 class BasicCamera : public Camera
 {
 public:
+    BasicCamera(){}
     BasicCamera(Eigen::Vector3f position, Eigen::Vector3f direction, Eigen::Vector3f up);
 
     virtual Eigen::Matrix4f getViewMatrix();

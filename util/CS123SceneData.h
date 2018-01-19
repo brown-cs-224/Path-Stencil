@@ -50,6 +50,7 @@ struct CS123SceneGlobalData  {
 
 // Data for a single light
 struct CS123SceneLightData {
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    int id;
    LightType type;
 
@@ -68,6 +69,7 @@ struct CS123SceneLightData {
 
 // Data for scene camera
 struct CS123SceneCameraData {
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    Eigen::Vector4f pos;
    Eigen::Vector4f look;
    Eigen::Vector4f up;
@@ -97,6 +99,7 @@ struct CS123SceneFileMap {
 
 // Data for scene materials
 struct CS123SceneMaterial {
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    // This field specifies the diffuse color of the object. This is the color you need to use for
    // the object in sceneview. You can get away with ignoring the other color values until
    // intersect and ray.
@@ -134,6 +137,7 @@ struct CS123SceneMaterial {
 };
 
 struct CS123ScenePrimitive {
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    PrimitiveType type;
    std::string meshfile;     // Only applicable to meshes
    CS123SceneMaterial material;
@@ -142,6 +146,7 @@ struct CS123ScenePrimitive {
 // Data for transforming a scene object. Aside from the TransformationType, the remaining of the
 // data in the struct is mutually exclusive.
 struct CS123SceneTransformation {
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     TransformationType type;
 
     Eigen::Vector3f translate; // The translation vector. Only valid if transformation is a translation.
