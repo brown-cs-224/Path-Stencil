@@ -8,8 +8,8 @@ Triangle::Triangle()
 {
 }
 
-Triangle::Triangle(Vector3f v1, Vector3f v2, Vector3f v3)
-    : _v1(v1), _v2(v2), _v3(v3)
+Triangle::Triangle(Vector3f v1, Vector3f v2, Vector3f v3, Vector3f n1, Vector3f n2, Vector3f n3)
+    : _v1(v1), _v2(v2), _v3(v3), _n1(n1), _n2(n2), _n3(n3)
 {
     _centroid = (_v1 + _v2 + _v3) / 3.f;
     _bbox = BBox(_v1);
@@ -54,9 +54,7 @@ bool Triangle::getIntersection(const Ray &ray, IntersectionInfo *intersection) c
 
 Vector3f Triangle::getNormal(const IntersectionInfo &I) const
 {
-    Vector3f a = _v2 - _v1;
-    Vector3f b = _v3 - _v1;
-    return a.cross(b);
+    return (_n1 + _n2 + _n3) / 3.f;
 }
 
 BBox Triangle::getBBox() const

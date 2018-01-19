@@ -7,6 +7,8 @@
 #include "Ray.h"
 #include "BBox.h"
 
+#include "util/CS123SceneData.h"
+
 struct Object {
   //! All "Objects" must be able to test for intersections with rays.
   virtual bool getIntersection(
@@ -22,6 +24,8 @@ struct Object {
 
   //! Return the centroid for this object. (Used in BVH Sorting)
   virtual Eigen::Vector3f getCentroid() const = 0;
+
+    CS123SceneMaterial material;
 };
 
 #endif

@@ -9,7 +9,8 @@
 class Mesh : public Object
 {
 public:
-    Mesh(const std::vector<Eigen::Vector3f> &vertices, const std::vector<Eigen::Vector3i> &faces);
+    Mesh(const std::vector<Eigen::Vector3f> &vertices, const std::vector<Eigen::Vector3f> &normals, const std::vector<Eigen::Vector3f> &colors, const std::vector<Eigen::Vector3i> &faces);
+    Mesh(const std::vector<Eigen::Vector3f> &vertices, const std::vector<Eigen::Vector3f> &normals, const std::vector<Eigen::Vector2f> &uvs, const std::vector<Eigen::Vector3i> &faces);
     virtual ~Mesh();
 
     virtual bool getIntersection(const Ray &ray, IntersectionInfo *intersection) const;
@@ -22,7 +23,11 @@ public:
 
 private:
     std::vector<Eigen::Vector3f> _vertices;
+    std::vector<Eigen::Vector3f> _normals;
+    std::vector<Eigen::Vector3f> _colors;
+    std::vector<Eigen::Vector2f> _uvs;
     std::vector<Eigen::Vector3i> _faces;
+    bool _textured;
 
     BVH *_meshBvh;
 

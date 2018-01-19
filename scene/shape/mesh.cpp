@@ -5,8 +5,15 @@
 using namespace Eigen;
 using namespace std;
 
-Mesh::Mesh(const vector<Vector3f> &vertices, const vector<Vector3i> &faces)
-    : _vertices(vertices), _faces(faces)
+Mesh::Mesh(const vector<Vector3f> &vertices, const vector<Vector3f> &normals, const vector<Vector3f> &colors, const vector<Vector3i> &faces)
+    : _vertices(vertices), _normals(normals), _colors(colors), _faces(faces), _textured(false)
+{
+    calculateMeshStats();
+    createMeshBVH();
+}
+
+Mesh::Mesh(const std::vector<Vector3f> &vertices, const std::vector<Vector3f> &normals, const std::vector<Vector2f> &uvs, const std::vector<Vector3i> &faces)
+    : _vertices(vertices), _normals(normals), _uvs(uvs), _faces(faces), _textured(true)
 {
     calculateMeshStats();
     createMeshBVH();
@@ -19,12 +26,21 @@ Mesh::~Mesh()
 
 bool Mesh::getIntersection(const Ray &ray, IntersectionInfo *intersection) const
 {
-    return _meshBvh->getIntersection(ray, intersection, false);
+    IntersectionInfo i;
+    bool col = _meshBvh->getIntersection(ray, &i, false);
+    if(col) {
+        intersection->t = i.t;
+        intersection->object = this;
+        intersection->data = i.object;
+
+        return true;
+    }
+    return false;
 }
 
 Vector3f Mesh::getNormal(const IntersectionInfo &I) const
 {
-    return I.object->getNormal(I);
+    return static_cast<const Object *>(I.data)->getNormal(I);
 }
 
 BBox Mesh::getBBox() const
@@ -57,7 +73,10 @@ void Mesh::createMeshBVH()
         Vector3f v1 = _vertices[face(0)];
         Vector3f v2 = _vertices[face(1)];
         Vector3f v3 = _vertices[face(2)];
-        triArray[i] = Triangle(v1, v2, v3);
+        Vector3f n1 = _normals[face[0]];
+        Vector3f n2 = _normals[face[1]];
+        Vector3f n3 = _normals[face[2]];
+        triArray[i] = Triangle(v1, v2, v3, n1, n2, n3);
         objects[i] = &triArray[i];
     }
 

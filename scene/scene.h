@@ -9,13 +9,16 @@
 
 #include "util/CS123SceneData.h"
 
+#include "shape/mesh.h"
+
 class Scene
 {
 public:
-    Scene(const BVH& m_bvh);
+    Scene();
 
     static bool load(QString filename, Scene **scenePointer);
 
+    void setBVH(const BVH &bvh);
     const BVH& getBVH() const;
 
     void setCamera(const BasicCamera& camera);
@@ -24,7 +27,7 @@ public:
 
 private:
 
-    BVH m_bvh;
+    BVH *m_bvh;
 
     BasicCamera m_camera;
 
@@ -32,6 +35,10 @@ private:
 
     std::vector<CS123SceneLightData> m_lights;
 
+    static void parseTree(CS123SceneNode *root, Scene *scene);
+    static void parseNode(CS123SceneNode *node, const Eigen::Affine3f &parentTransform, std::vector<Object *> *objects);
+    static void addPrimitive(CS123ScenePrimitive *prim, const Eigen::Affine3f &transform, std::vector<Object *> *objects);
+    static Mesh *loadMesh(std::string filePath, const Eigen::Affine3f &transform);
 };
 
 #endif // SCENE_H
