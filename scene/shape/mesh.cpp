@@ -5,15 +5,14 @@
 using namespace Eigen;
 using namespace std;
 
-Mesh::Mesh(const vector<Vector3f> &vertices, const vector<Vector3f> &normals, const vector<Vector3f> &colors, const vector<Vector3i> &faces)
-    : _vertices(vertices), _normals(normals), _colors(colors), _faces(faces), _textured(false)
-{
-    calculateMeshStats();
-    createMeshBVH();
-}
-
-Mesh::Mesh(const std::vector<Vector3f> &vertices, const std::vector<Vector3f> &normals, const std::vector<Vector2f> &uvs, const std::vector<Vector3i> &faces)
-    : _vertices(vertices), _normals(normals), _uvs(uvs), _faces(faces), _textured(true)
+Mesh::Mesh(const std::vector<Vector3f> &vertices, const std::vector<Vector3f> &normals, const std::vector<Vector2f> &uvs, const std::vector<Vector3f> &colors, const std::vector<Vector3i> &faces, const std::vector<int> materialIds, const std::vector<tinyobj::material_t> materials)
+    : _vertices(vertices),
+      _normals(normals),
+      _colors(colors),
+      _uvs(uvs),
+      _faces(faces),
+      _materialIds(materialIds),
+      _materials(materials)
 {
     calculateMeshStats();
     createMeshBVH();

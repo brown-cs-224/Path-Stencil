@@ -35,7 +35,7 @@ private:
 
     std::vector<CS123SceneLightData> m_lights;
 
-    static void parseTree(CS123SceneNode *root, Scene *scene);
+    static bool parseTree(CS123SceneNode *root, Scene *scene);
     static void parseNode(CS123SceneNode *node, const Eigen::Affine3f &parentTransform, std::vector<Object *> *objects);
     static void addPrimitive(CS123ScenePrimitive *prim, const Eigen::Affine3f &transform, std::vector<Object *> *objects);
     static Mesh *loadMesh(std::string filePath, const Eigen::Affine3f &transform);

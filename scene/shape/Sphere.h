@@ -11,8 +11,15 @@ struct Sphere : public Object {
   Eigen::Vector3f center; // Center of the sphere
   float r, r2; // Radius, Radius^2
 
-  Sphere(const Eigen::Vector3f& center, float radius)
-    : center(center), r(radius), r2(radius*radius) { }
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+  void setCenter(const Eigen::Vector3f& center) {
+      this->center = center;
+  }
+  void setRadius(float radius) {
+      r = radius;
+      r2 = radius * radius;
+  }
 
   bool getIntersection(const Ray& ray, IntersectionInfo* I) const {
     Eigen::Vector3f s = center - ray.o;

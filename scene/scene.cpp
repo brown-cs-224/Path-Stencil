@@ -8,6 +8,8 @@
 
 #include <iostream>
 
+#include <Eigen/StdVector>
+
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "util/tiny_obj_loader.h"
 
@@ -42,7 +44,9 @@ bool Scene::load(QString filename, Scene **scenePointer)
     }
 
     CS123SceneNode *root = parser.getRootNode();
-    parseTree(root, scene);
+    if(!parseTree(root, scene)) {
+        return false;
+    }
 
     *scenePointer = scene;
     return true;
@@ -53,16 +57,19 @@ void Scene::setBVH(const BVH &bvh)
     m_bvh = new BVH(bvh);
 }
 
-void Scene::parseTree(CS123SceneNode *root, Scene *scene)
+bool Scene::parseTree(CS123SceneNode *root, Scene *scene)
 {
     //TODO this leaks memory right now
     std::vector<Object *> *objects = new std::vector<Object *>;
     parseNode(root, Affine3f(), objects);
-    Sphere *s = new Sphere(Vector3f(0.5, 0, -1), 1);
-    objects->push_back(s);
-    BVH bvh(objects);
+    if(objects->size() == 0) {
+        return false;
+    }
+    //TODO this leaks memory right now
+    BVH *bvh = new BVH(objects);
 
-    scene->setBVH(bvh);
+    scene->setBVH(*bvh);
+    return true;
 }
 
 void Scene::parseNode(CS123SceneNode *node, const Affine3f &parentTransform, std::vector<Object *> *objects)
@@ -124,12 +131,46 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform)
 
     std::vector<Vector3f> vertices;
     std::vector<Vector3f> normals;
+    std::vector<Vector3f> colors;
     std::vector<Vector2f> uvs;
+    std::vector<int> materialIds;
     std::vector<Vector3i> faces;
 
     //TODO populate vectors and use tranform
+    for(size_t s = 0; s < shapes.size(); s++) {
+        size_t index_offset = 0;
+        for(size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++) {
+            int fv = shapes[s].mesh.num_face_vertices[f];
 
-    Mesh *m = new Mesh(vertices, normals, uvs, faces);
+            Vector3i face;
+            for(size_t v = 0; v < fv; v++) {
+                tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
+                tinyobj::real_t vx = attrib.vertices[3*idx.vertex_index+0];
+                tinyobj::real_t vy = attrib.vertices[3*idx.vertex_index+1];
+                tinyobj::real_t vz = attrib.vertices[3*idx.vertex_index+2];
+                tinyobj::real_t nx = attrib.normals[3*idx.normal_index+0];
+                tinyobj::real_t ny = attrib.normals[3*idx.normal_index+1];
+                tinyobj::real_t nz = attrib.normals[3*idx.normal_index+2];
+                tinyobj::real_t tx = attrib.texcoords[2*idx.texcoord_index+0];
+                tinyobj::real_t ty = attrib.texcoords[2*idx.texcoord_index+1];
+                tinyobj::real_t red = attrib.colors[3*idx.vertex_index+0];
+                tinyobj::real_t green = attrib.colors[3*idx.vertex_index+1];
+                tinyobj::real_t blue = attrib.colors[3*idx.vertex_index+2];
+
+                face[v] = vertices.size();
+                vertices.push_back(Vector3f(vx, vy, vz));
+                normals.push_back(Vector3f(nx, ny, nz));
+                uvs.push_back(Vector2f(tx, ty));
+                colors.push_back(Vector3f(red, green, blue));
+            }
+            faces.push_back(face);
+            materialIds.push_back(shapes[s].mesh.material_ids[f]);
+
+            index_offset += fv;
+        }
+    }
+
+    Mesh *m = new Mesh(vertices, normals, uvs, colors, faces, materialIds, materials);
     return m;
 
 }
