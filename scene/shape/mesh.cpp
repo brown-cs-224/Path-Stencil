@@ -71,6 +71,7 @@ void Mesh::calculateMeshStats()
 void Mesh::createMeshBVH()
 {
     Triangle *triArray = new Triangle[_faces.size()];
+    //TODO this leaks memory
     std::vector<Object *> *objects = new std::vector<Object *>;
     objects->resize(_faces.size());
     for(unsigned int i = 0; i < _faces.size(); ++i) {
