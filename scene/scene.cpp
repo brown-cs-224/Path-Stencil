@@ -43,8 +43,10 @@ bool Scene::load(QString filename, Scene **scenePointer)
         scene->addLight(lightData);
     }
 
+    QFileInfo info(filename);
+    QString dir = info.path();
     CS123SceneNode *root = parser.getRootNode();
-    if(!parseTree(root, scene)) {
+    if(!parseTree(root, scene, dir.toStdString() + "/")) {
         return false;
     }
 
@@ -57,14 +59,15 @@ void Scene::setBVH(const BVH &bvh)
     m_bvh = new BVH(bvh);
 }
 
-bool Scene::parseTree(CS123SceneNode *root, Scene *scene)
+bool Scene::parseTree(CS123SceneNode *root, Scene *scene, const std::string &baseDir)
 {
     //TODO this leaks memory right now
     std::vector<Object *> *objects = new std::vector<Object *>;
-    parseNode(root, Affine3f(), objects);
+    parseNode(root, Affine3f(), objects, baseDir);
     if(objects->size() == 0) {
         return false;
     }
+    std::cout << "Parsed tree, creating BVH" << std::endl;
     //TODO this leaks memory right now
     BVH *bvh = new BVH(objects);
 
@@ -72,7 +75,7 @@ bool Scene::parseTree(CS123SceneNode *root, Scene *scene)
     return true;
 }
 
-void Scene::parseNode(CS123SceneNode *node, const Affine3f &parentTransform, std::vector<Object *> *objects)
+void Scene::parseNode(CS123SceneNode *node, const Affine3f &parentTransform, std::vector<Object *> *objects, const std::string &baseDir)
 {
     Affine3f transform = parentTransform;
     for(CS123SceneTransformation *trans : node->transformations) {
@@ -92,18 +95,20 @@ void Scene::parseNode(CS123SceneNode *node, const Affine3f &parentTransform, std
             }
         }
         for(CS123ScenePrimitive *prim : node->primitives) {
-            addPrimitive(prim, transform, objects);
+            addPrimitive(prim, transform, objects, baseDir);
         }
         for(CS123SceneNode *child : node->children) {
-            parseNode(child, transform, objects);
+            parseNode(child, transform, objects, baseDir);
         }
 }
 
-void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, std::vector<Object *> *objects)
+void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, std::vector<Object *> *objects, const std::string &baseDir)
 {
     switch(prim->type) {
     case PrimitiveType::PRIMITIVE_MESH:
-        objects->push_back(loadMesh(prim->meshfile, transform));
+        std::cout << "Loading mesh" << std::endl;
+        objects->push_back(loadMesh(prim->meshfile, transform, baseDir));
+        std::cout << "Loaded mesh" << std::endl;
         break;
     default:
         std::cerr << "We don't handle any other formats yet" << std::endl;
@@ -111,15 +116,16 @@ void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, s
     }
 }
 
-Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform)
+Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std::string &baseDir)
 {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
 
+    QFileInfo info(QString((baseDir + filePath).c_str()));
     std::string err;
     bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &err,
-                                filePath.data(), nullptr, true);
+                                info.absoluteFilePath().toStdString().c_str(), (info.absolutePath().toStdString() + "/").c_str(), true);
     if(!err.empty()) {
         std::cerr << err << std::endl;
     }
@@ -170,7 +176,14 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform)
         }
     }
 
-    Mesh *m = new Mesh(vertices, normals, uvs, colors, faces, materialIds, materials);
+    Mesh *m = new Mesh;
+    m->init(vertices,
+            normals,
+            uvs,
+            colors,
+            faces,
+            materialIds,
+            materials);
     return m;
 
 }

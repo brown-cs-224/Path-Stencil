@@ -12,7 +12,7 @@ Triangle::Triangle(Vector3f v1, Vector3f v2, Vector3f v3, Vector3f n1, Vector3f 
     : _v1(v1), _v2(v2), _v3(v3), _n1(n1), _n2(n2), _n3(n3)
 {
     _centroid = (_v1 + _v2 + _v3) / 3.f;
-    _bbox = BBox(_v1);
+    _bbox.setP(_v1);
     _bbox.expandToInclude(_v2);
     _bbox.expandToInclude(_v3);
 }

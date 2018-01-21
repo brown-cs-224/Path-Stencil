@@ -43,7 +43,8 @@ struct Sphere : public Object {
   }
 
   BBox getBBox() const {
-    return BBox(center-Eigen::Vector3f(r,r,r), center+Eigen::Vector3f(r,r,r));
+      BBox box(center-Eigen::Vector3f(r,r,r), center+Eigen::Vector3f(r,r,r));
+      return box;
   }
 
   Eigen::Vector3f getCentroid() const {

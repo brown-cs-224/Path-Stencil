@@ -17,7 +17,7 @@ private:
 
     QRgb tracePixel(int x, int y, const Scene &scene);
 
-    QRgb traceRay(Ray r, const Scene &scene);
+    QRgb traceRay(const Ray& r, const Scene &scene);
 };
 
 #endif // PATHTRACER_H

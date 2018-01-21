@@ -6,11 +6,37 @@
 
 using namespace Eigen;
 
-BBox::BBox(const Vector3f& min, const Vector3f& max)
-    : min(min), max(max) { extent = max - min; }
+BBox::BBox()
+{
 
-BBox::BBox(const Vector3f& p)
-    : min(p), max(p) { extent = max - min; }
+}
+
+BBox::BBox(const Vector3f &min, const Vector3f &max)
+{
+    this->min = min;
+    this->max = max;
+    this->extent = max - min;
+}
+
+BBox::BBox(const Vector3f &p)
+{
+    this->min = p;
+    this->max = p;
+    this->extent = max - min;
+}
+
+void BBox::setMinMax(const Vector3f& min, const Vector3f& max)
+{
+    this->min = min;
+    this->max = max;
+    extent = max - min;
+}
+
+void BBox::setP(const Vector3f& p) {
+    min = p;
+    max = p;
+    extent = max - min;
+}
 
 void BBox::expandToInclude(const Vector3f& p) {
     min = min.cwiseMin(p);
@@ -56,6 +82,13 @@ bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
 //    Vector3 _max(max(0), max(1), max(2));
 //    Vector3 _o(ray.o(0), ray.o(1), ray.o(2));
 //    Vector3 _inv_d(ray.inv_d(0), ray.inv_d(1), ray.inv_d(2));
+    std::cout << std::hex;
+    std::cout << (unsigned int)&min << std::endl;
+    std::cout << (unsigned int)&max << std::endl;
+    std::cout << min + max << std::endl;
+    std::cout << (unsigned int)&ray.o << std::endl;
+    std::cout << (unsigned int)&ray.inv_d << std::endl;
+    std::cout << std::dec;
 
     // you may already have those values hanging around somewhere
     const __m128

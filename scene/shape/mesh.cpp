@@ -5,15 +5,21 @@
 using namespace Eigen;
 using namespace std;
 
-Mesh::Mesh(const std::vector<Vector3f> &vertices, const std::vector<Vector3f> &normals, const std::vector<Vector2f> &uvs, const std::vector<Vector3f> &colors, const std::vector<Vector3i> &faces, const std::vector<int> materialIds, const std::vector<tinyobj::material_t> materials)
-    : _vertices(vertices),
-      _normals(normals),
-      _colors(colors),
-      _uvs(uvs),
-      _faces(faces),
-      _materialIds(materialIds),
-      _materials(materials)
+void Mesh::init(const std::vector<Vector3f> &vertices,
+           const std::vector<Vector3f> &normals,
+           const std::vector<Vector2f> &uvs,
+           const std::vector<Vector3f> &colors,
+           const std::vector<Vector3i> &faces,
+           const std::vector<int> &materialIds,
+           const std::vector<tinyobj::material_t> &materials)
 {
+    _vertices = vertices;
+    _normals = normals;
+    _colors = colors;
+    _uvs = uvs;
+    _faces = faces;
+    _materialIds = materialIds;
+    _materials = materials;
     calculateMeshStats();
     createMeshBVH();
 }
@@ -54,7 +60,7 @@ Vector3f Mesh::getCentroid() const
 
 void Mesh::calculateMeshStats()
 {
-    _bbox = BBox(_vertices[0]);
+    _bbox.setP(_vertices[0]);
     for(auto v : _vertices) {
         _centroid += v;
         _bbox.expandToInclude(v);

@@ -30,8 +30,9 @@ QRgb PathTracer::tracePixel(int x, int y, const Scene &scene)
     return traceRay(Ray(p, d), scene);
 }
 
-QRgb PathTracer::traceRay(Ray r, const Scene& scene)
+QRgb PathTracer::traceRay(const Ray& r, const Scene& scene)
 {
+    return qRgb(255, 255, 0);
     IntersectionInfo i;
     if(scene.getBVH().getIntersection(r, &i, true)) {
         return qRgb(255, 255, 255);

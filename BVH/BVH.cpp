@@ -2,6 +2,7 @@
 #include "BVH.h"
 #include "Log.h"
 #include "Stopwatch.h"
+#include <iostream>
 
 //! Node for storing state information during traversal.
 struct BVHTraversal {
@@ -64,6 +65,7 @@ bool BVH::getIntersection(const Ray& ray, IntersectionInfo* intersection, bool o
 
     } else { // Not a leaf
 
+        std::cout << std::hex << "BVH: " << (unsigned int)&flatTree[ni + 1].bbox << std::dec << std::endl;
       bool hitc0 = flatTree[ni+1].bbox.intersect(ray, bbhits, bbhits+1);
       bool hitc1 = flatTree[ni+node.rightOffset].bbox.intersect(ray, bbhits+2, bbhits+3);
 
@@ -170,8 +172,8 @@ void BVH::build()
     node.rightOffset = Untouched;
 
     // Calculate the bounding box for this node
-    BBox bb( (*build_prims)[start]->getBBox());
-    BBox bc( (*build_prims)[start]->getCentroid());
+    BBox bb((*build_prims)[start]->getBBox());
+    BBox bc((*build_prims)[start]->getCentroid());
     for(uint32_t p = start+1; p < end; ++p) {
       bb.expandToInclude( (*build_prims)[p]->getBBox());
       bc.expandToInclude( (*build_prims)[p]->getCentroid());

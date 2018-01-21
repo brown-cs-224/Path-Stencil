@@ -17,14 +17,15 @@ EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix3i)
 class Mesh : public Object
 {
 public:
-    Mesh(const std::vector<Eigen::Vector3f> &vertices,
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+    virtual ~Mesh();
+    void init(const std::vector<Eigen::Vector3f> &vertices,
          const std::vector<Eigen::Vector3f> &normals,
          const std::vector<Eigen::Vector2f> &uvs,
          const std::vector<Eigen::Vector3f> &colors,
          const std::vector<Eigen::Vector3i> &faces,
-         const std::vector<int> materialIds,
-         const std::vector<tinyobj::material_t> materials);
-    virtual ~Mesh();
+         const std::vector<int> &materialIds,
+         const std::vector<tinyobj::material_t> &materials);
 
     virtual bool getIntersection(const Ray &ray, IntersectionInfo *intersection) const;
 
