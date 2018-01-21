@@ -9,7 +9,7 @@ public:
     BasicCamera(){}
     BasicCamera(Eigen::Vector3f position, Eigen::Vector3f direction, Eigen::Vector3f up);
 
-    virtual Eigen::Matrix4f getViewMatrix();
+    virtual Eigen::Matrix4f getViewMatrix() const;
 private:
     Eigen::Vector3f m_position;
     Eigen::Vector3f m_direction;

@@ -7,7 +7,7 @@ BasicCamera::BasicCamera(Vector3f position, Vector3f direction, Vector3f up)
 {
 }
 
-Matrix4f BasicCamera::getViewMatrix()
+Matrix4f BasicCamera::getViewMatrix() const
 {
     Vector3f f = m_direction.normalized();
     Vector3f u = m_up.normalized();
@@ -15,18 +15,9 @@ Matrix4f BasicCamera::getViewMatrix()
     u = s.cross(f);
 
     Matrix4f Result;
-    Result(0, 0) = s(0);
-    Result(1, 0) = s(1);
-    Result(2, 0) = s(2);
-    Result(0, 1) = u(0);
-    Result(1, 1) = u(1);
-    Result(2, 1) = u(2);
-    Result(0, 2) =-f(0);
-    Result(1, 2) =-f(1);
-    Result(2, 2) =-f(2);
-    Result(3, 0) =-s.dot(m_position);
-    Result(3, 1) =-u.dot(m_position);
-    Result(3, 2) =-f.dot(m_position);
-    Result(3, 3) =1;
+    Result << s.x(),s.y(),s.z(), -s.dot(m_position),
+            u.x(),u.y(),u.z(), -u.dot(m_position),
+            -f.x(),-f.y(),-f.z(), f.dot(m_position),
+            0, 0, 0, 1;
     return Result;
 }

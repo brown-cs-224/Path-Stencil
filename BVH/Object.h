@@ -26,6 +26,8 @@ struct Object {
   virtual Eigen::Vector3f getCentroid() const = 0;
 
     CS123SceneMaterial material;
+
+    Eigen::Affine3f transform;
 };
 
 #endif

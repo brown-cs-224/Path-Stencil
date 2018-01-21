@@ -25,20 +25,20 @@ bool Triangle::getIntersection(const Ray &ray, IntersectionInfo *intersection) c
     edge1 = _v2 - _v1;
     edge2 = _v3 - _v1;
 
-    h = ray.d.cross(edge2);
+    h = ray.getD().cross(edge2);
     a = edge1.dot(h);
 
     if(floatEpsEqual(a, 0)) {
         return false;
     }
     f = 1/a;
-    s = ray.o - _v1;
+    s = ray.getO() - _v1;
     u = f * s.dot(h);
     if(u < 0.f || u > 1.f) {
         return false;
     }
     q = s.cross(edge1);
-    v = f * ray.o.dot(q);
+    v = f * ray.getD().dot(q);
     if(v < 0.f || u + v > 1.f) {
         return false;
     }

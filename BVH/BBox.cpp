@@ -21,7 +21,7 @@ void BBox::setP(const Vector3f& p) {
 
 void BBox::expandToInclude(const Vector3f& p) {
     min = min.cwiseMin(p);
-    max = max.cwiseMin(p);
+    max = max.cwiseMax(p);
     extent = max - min;
 }
 
@@ -61,8 +61,10 @@ ps_cst_minus_inf[4] = { -flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_i
 bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
     Vector3 _min(min(0), min(1), min(2));
     Vector3 _max(max(0), max(1), max(2));
-    Vector3 _o(ray.o(0), ray.o(1), ray.o(2));
-    Vector3 _inv_d(ray.inv_d(0), ray.inv_d(1), ray.inv_d(2));
+    const Vector3f &o = ray.getO();
+    const Vector3f &inv_d = ray.getInvD();
+    Vector3 _o(o(0), o(1), o(2));
+    Vector3 _inv_d(inv_d(0), inv_d(1), inv_d(2));
 
     // you may already have those values hanging around somewhere
     const __m128

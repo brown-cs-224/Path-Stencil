@@ -2,6 +2,8 @@
 
 #include "triangle.h"
 
+#include <iostream>
+
 using namespace Eigen;
 using namespace std;
 
@@ -31,8 +33,11 @@ Mesh::~Mesh()
 
 bool Mesh::getIntersection(const Ray &ray, IntersectionInfo *intersection) const
 {
+    Ray r;
+    r.setO(transform * ray.getO());
+    r.setD(transform.linear() * ray.getD());
     IntersectionInfo i;
-    bool col = _meshBvh->getIntersection(ray, &i, false);
+    bool col = _meshBvh->getIntersection(r, &i, false);
     if(col) {
         intersection->t = i.t;
         intersection->object = this;

@@ -63,7 +63,7 @@ bool Scene::parseTree(CS123SceneNode *root, Scene *scene, const std::string &bas
 {
     //TODO this leaks memory right now
     std::vector<Object *> *objects = new std::vector<Object *>;
-    parseNode(root, Affine3f(), objects, baseDir);
+    parseNode(root, Affine3f::Identity(), objects, baseDir);
     if(objects->size() == 0) {
         return false;
     }
@@ -157,6 +157,7 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
                 tinyobj::real_t nx = attrib.normals[3*idx.normal_index+0];
                 tinyobj::real_t ny = attrib.normals[3*idx.normal_index+1];
                 tinyobj::real_t nz = attrib.normals[3*idx.normal_index+2];
+                //TODO Check for -1
                 tinyobj::real_t tx = attrib.texcoords[2*idx.texcoord_index+0];
                 tinyobj::real_t ty = attrib.texcoords[2*idx.texcoord_index+1];
                 tinyobj::real_t red = attrib.colors[3*idx.vertex_index+0];
@@ -185,12 +186,18 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
             faces,
             materialIds,
             materials);
+    m->transform = transform;
     return m;
 }
 
 const BVH &Scene::getBVH() const
 {
     return *m_bvh;
+}
+
+const BasicCamera &Scene::getCamera() const
+{
+    return m_camera;
 }
 
 void Scene::setCamera(const BasicCamera &camera)

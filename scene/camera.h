@@ -8,7 +8,7 @@ class Camera
 public:
     Camera();
 
-    virtual Eigen::Matrix4f getViewMatrix() = 0;
+    virtual Eigen::Matrix4f getViewMatrix() const = 0;
 };
 
 #endif // CAMERA_H

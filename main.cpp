@@ -8,8 +8,8 @@
 
 #include <QImage>
 
-#define IMAGE_WIDTH 100
-#define IMAGE_HEIGHT 100
+#define IMAGE_WIDTH 300
+#define IMAGE_HEIGHT 300
 
 int main(int argc, char *argv[])
 {

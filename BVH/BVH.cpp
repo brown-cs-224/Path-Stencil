@@ -105,7 +105,7 @@ bool BVH::getIntersection(const Ray& ray, IntersectionInfo* intersection, bool o
 
   // If we hit something,
   if(intersection->object != NULL)
-    intersection->hit = ray.o + ray.d * intersection->t;
+    intersection->hit = ray.getO() + ray.getD() * intersection->t;
 
   return intersection->object != NULL;
 }
