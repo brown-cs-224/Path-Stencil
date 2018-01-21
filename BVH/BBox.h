@@ -7,9 +7,6 @@
 
 struct BBox {
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-  BBox();
-  BBox(const Eigen::Vector3f &min, const Eigen::Vector3f &max);
-  BBox(const Eigen::Vector3f &p);
 
   Eigen::Vector3f min;
   Eigen::Vector3f max;

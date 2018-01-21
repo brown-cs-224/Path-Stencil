@@ -71,8 +71,8 @@ void Mesh::calculateMeshStats()
 void Mesh::createMeshBVH()
 {
     Triangle *triArray = new Triangle[_faces.size()];
-    std::vector<Object *> objects;
-    objects.resize(_faces.size());
+    std::vector<Object *> *objects = new std::vector<Object *>;
+    objects->resize(_faces.size());
     for(unsigned int i = 0; i < _faces.size(); ++i) {
         Vector3i face = _faces[i];
         Vector3f v1 = _vertices[face(0)];
@@ -82,10 +82,10 @@ void Mesh::createMeshBVH()
         Vector3f n2 = _normals[face[1]];
         Vector3f n3 = _normals[face[2]];
         triArray[i] = Triangle(v1, v2, v3, n1, n2, n3);
-        objects[i] = &triArray[i];
+        (*objects)[i] = &triArray[i];
     }
 
-    _meshBvh = new BVH(&objects);
+    _meshBvh = new BVH(objects);
 
-    delete[] triArray;
+    //delete[] triArray;
 }

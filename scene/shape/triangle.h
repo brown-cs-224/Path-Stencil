@@ -6,6 +6,7 @@
 class Triangle : public Object
 {
 public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     Triangle();
     Triangle(Eigen::Vector3f v1, Eigen::Vector3f v2, Eigen::Vector3f v3,
              Eigen::Vector3f n1, Eigen::Vector3f n2, Eigen::Vector3f n3);

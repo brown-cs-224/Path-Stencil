@@ -175,6 +175,7 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
             index_offset += fv;
         }
     }
+    std::cout << "Loaded " << faces.size() << " faces" << std::endl;
 
     Mesh *m = new Mesh;
     m->init(vertices,
@@ -185,7 +186,6 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
             materialIds,
             materials);
     return m;
-
 }
 
 const BVH &Scene::getBVH() const

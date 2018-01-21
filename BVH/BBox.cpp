@@ -6,25 +6,6 @@
 
 using namespace Eigen;
 
-BBox::BBox()
-{
-
-}
-
-BBox::BBox(const Vector3f &min, const Vector3f &max)
-{
-    this->min = min;
-    this->max = max;
-    this->extent = max - min;
-}
-
-BBox::BBox(const Vector3f &p)
-{
-    this->min = p;
-    this->max = p;
-    this->extent = max - min;
-}
-
 void BBox::setMinMax(const Vector3f& min, const Vector3f& max)
 {
     this->min = min;
@@ -78,17 +59,10 @@ static const float __attribute__((aligned(16)))
 ps_cst_plus_inf[4] = {  flt_plus_inf,  flt_plus_inf,  flt_plus_inf,  flt_plus_inf },
 ps_cst_minus_inf[4] = { -flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_inf };
 bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
-//    Vector3 _min(min(0), min(1), min(2));
-//    Vector3 _max(max(0), max(1), max(2));
-//    Vector3 _o(ray.o(0), ray.o(1), ray.o(2));
-//    Vector3 _inv_d(ray.inv_d(0), ray.inv_d(1), ray.inv_d(2));
-    std::cout << std::hex;
-    std::cout << (unsigned int)&min << std::endl;
-    std::cout << (unsigned int)&max << std::endl;
-    std::cout << min + max << std::endl;
-    std::cout << (unsigned int)&ray.o << std::endl;
-    std::cout << (unsigned int)&ray.inv_d << std::endl;
-    std::cout << std::dec;
+    Vector3 _min(min(0), min(1), min(2));
+    Vector3 _max(max(0), max(1), max(2));
+    Vector3 _o(ray.o(0), ray.o(1), ray.o(2));
+    Vector3 _inv_d(ray.inv_d(0), ray.inv_d(1), ray.inv_d(2));
 
     // you may already have those values hanging around somewhere
     const __m128
@@ -97,10 +71,10 @@ bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
 
     // use whatever's apropriate to load.
     const __m128
-            box_min	= loadps(&min),
-            box_max	= loadps(&max),
-            pos	= loadps(&ray.o),
-            inv_dir	= loadps(&ray.inv_d);
+            box_min	= loadps(&_min),
+            box_max	= loadps(&_max),
+            pos	= loadps(&_o),
+            inv_dir	= loadps(&_inv_d);
 
     // use a div if inverted directions aren't available
     const __m128 l1 = mulps(subps(box_min, pos), inv_dir);

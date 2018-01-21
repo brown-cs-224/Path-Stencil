@@ -43,7 +43,8 @@ struct Sphere : public Object {
   }
 
   BBox getBBox() const {
-      BBox box(center-Eigen::Vector3f(r,r,r), center+Eigen::Vector3f(r,r,r));
+      BBox box;
+      box.setMinMax(center-Eigen::Vector3f(r,r,r), center+Eigen::Vector3f(r,r,r));
       return box;
   }
 

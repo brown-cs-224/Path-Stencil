@@ -10,6 +10,7 @@
 
 //! Node descriptor for the flattened tree
 struct BVHFlatNode {
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   BBox bbox;
   uint32_t start, nPrims, rightOffset;
 };
