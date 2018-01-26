@@ -54,7 +54,27 @@ bool Triangle::getIntersection(const Ray &ray, IntersectionInfo *intersection) c
 
 Vector3f Triangle::getNormal(const IntersectionInfo &I) const
 {
-    return (_n1 + _n2 + _n3) / 3.f;
+    //Calculate Barycentric coordinates to get interpolated normal
+    Vector3f p = I.hit;
+    Vector3f v0 = _v2 - _v1;
+    Vector3f v1 = _v3 - _v1;
+    Vector3f v2 = p - _v2;
+    float d00 = v0.dot(v0);
+    float d01 = v0.dot(v1);
+    float d11 = v1.dot(v1);
+    float d20 = v2.dot(v0);
+    float d21 = v2.dot(v1);
+    float denom = d00 * d11 - d01 * d01;
+    float v = (d11 * d20 - d01 * d21) / denom;
+    float w = (d00 * d21 - d01 * d20) / denom;
+    float u = 1.f - v - w;
+
+    Vector3f n = v0.cross(v1);
+    //If normals weren't loaded from file, calculate them instead (This will be flat shading, not smooth shading)
+    Vector3f n1 = floatEpsEqual(_n1.squaredNorm(), 0) ? n : _n1;
+    Vector3f n2 = floatEpsEqual(_n2.squaredNorm(), 0) ? n : _n2;
+    Vector3f n3 = floatEpsEqual(_n3.squaredNorm(), 0) ? n : _n3;
+    return (u * n1 + v * n2 + w * n3);
 }
 
 BBox Triangle::getBBox() const

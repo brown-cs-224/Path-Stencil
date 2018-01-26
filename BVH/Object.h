@@ -10,6 +10,9 @@
 #include "util/CS123SceneData.h"
 
 struct Object {
+    Object() {
+        transform = Eigen::Affine3f::Identity();
+    }
   //! All "Objects" must be able to test for intersections with rays.
   virtual bool getIntersection(
       const Ray& ray,

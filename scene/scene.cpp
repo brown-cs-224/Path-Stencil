@@ -79,36 +79,36 @@ void Scene::parseNode(CS123SceneNode *node, const Affine3f &parentTransform, std
 {
     Affine3f transform = parentTransform;
     for(CS123SceneTransformation *trans : node->transformations) {
-            switch(trans->type) {
-            case TRANSFORMATION_TRANSLATE:
-                transform = transform * Translation<float, 3>(trans->translate);
-                break;
-            case TRANSFORMATION_SCALE:
-                transform = transform * Scaling(trans->scale);
-                break;
-            case TRANSFORMATION_ROTATE:
-                transform = transform * AngleAxis<float>(trans->angle, trans->rotate);
-                break;
-            case TRANSFORMATION_MATRIX:
-                transform = transform * trans->matrix;
-                break;
-            }
+        switch(trans->type) {
+        case TRANSFORMATION_TRANSLATE:
+            transform = transform * Translation<float, 3>(trans->translate);
+            break;
+        case TRANSFORMATION_SCALE:
+            transform = transform * Scaling(trans->scale);
+            break;
+        case TRANSFORMATION_ROTATE:
+            transform = transform * AngleAxis<float>(trans->angle, trans->rotate);
+            break;
+        case TRANSFORMATION_MATRIX:
+            transform = transform * trans->matrix;
+            break;
         }
-        for(CS123ScenePrimitive *prim : node->primitives) {
-            addPrimitive(prim, transform, objects, baseDir);
-        }
-        for(CS123SceneNode *child : node->children) {
-            parseNode(child, transform, objects, baseDir);
-        }
+    }
+    for(CS123ScenePrimitive *prim : node->primitives) {
+        addPrimitive(prim, transform, objects, baseDir);
+    }
+    for(CS123SceneNode *child : node->children) {
+        parseNode(child, transform, objects, baseDir);
+    }
 }
 
 void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, std::vector<Object *> *objects, const std::string &baseDir)
 {
     switch(prim->type) {
     case PrimitiveType::PRIMITIVE_MESH:
-        std::cout << "Loading mesh" << std::endl;
+        std::cout << "Loading mesh " << prim->meshfile << std::endl;
         objects->push_back(loadMesh(prim->meshfile, transform, baseDir));
-        std::cout << "Loaded mesh" << std::endl;
+        std::cout << "Done loading mesh" << std::endl;
         break;
     default:
         std::cerr << "We don't handle any other formats yet" << std::endl;
@@ -146,7 +146,7 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
     for(size_t s = 0; s < shapes.size(); s++) {
         size_t index_offset = 0;
         for(size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++) {
-            int fv = shapes[s].mesh.num_face_vertices[f];
+            unsigned int fv = shapes[s].mesh.num_face_vertices[f];
 
             Vector3i face;
             for(size_t v = 0; v < fv; v++) {
@@ -154,19 +154,38 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
                 tinyobj::real_t vx = attrib.vertices[3*idx.vertex_index+0];
                 tinyobj::real_t vy = attrib.vertices[3*idx.vertex_index+1];
                 tinyobj::real_t vz = attrib.vertices[3*idx.vertex_index+2];
-                tinyobj::real_t nx = attrib.normals[3*idx.normal_index+0];
-                tinyobj::real_t ny = attrib.normals[3*idx.normal_index+1];
-                tinyobj::real_t nz = attrib.normals[3*idx.normal_index+2];
-                //TODO Check for -1
-                tinyobj::real_t tx = attrib.texcoords[2*idx.texcoord_index+0];
-                tinyobj::real_t ty = attrib.texcoords[2*idx.texcoord_index+1];
+                tinyobj::real_t nx;
+                tinyobj::real_t ny;
+                tinyobj::real_t nz;
+                tinyobj::real_t tx;
+                tinyobj::real_t ty;
+
+                if(idx.normal_index != -1) {
+                    nx = attrib.normals[3*idx.normal_index+0];
+                    ny = attrib.normals[3*idx.normal_index+1];
+                    nz = attrib.normals[3*idx.normal_index+2];
+                } else {
+                    nx = 0;
+                    ny = 0;
+                    nz = 0;
+                }
+                if(idx.texcoord_index != -1) {
+                    tx = attrib.texcoords[2*idx.texcoord_index+0];
+                    ty = attrib.texcoords[2*idx.texcoord_index+1];
+                } else {
+                    tx = 0;
+                    ty = 0;
+                }
+
                 tinyobj::real_t red = attrib.colors[3*idx.vertex_index+0];
                 tinyobj::real_t green = attrib.colors[3*idx.vertex_index+1];
                 tinyobj::real_t blue = attrib.colors[3*idx.vertex_index+2];
 
                 face[v] = vertices.size();
+//                vertices.push_back(transform * Vector3f(vx, vy, vz));
+//                normals.push_back((transform.linear().inverse().transpose() * Vector3f(nx, ny, nz)).normalized());
                 vertices.push_back(Vector3f(vx, vy, vz));
-                normals.push_back(Vector3f(nx, ny, nz));
+                normals.push_back(Vector3f(nx, ny, nz).normalized());
                 uvs.push_back(Vector2f(tx, ty));
                 colors.push_back(Vector3f(red, green, blue));
             }
@@ -178,6 +197,7 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
     }
     std::cout << "Loaded " << faces.size() << " faces" << std::endl;
 
+    //TODO This leaks memory right now
     Mesh *m = new Mesh;
     m->init(vertices,
             normals,
@@ -186,7 +206,7 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
             faces,
             materialIds,
             materials);
-    m->transform = transform;
+    m->transform = transform.inverse();
     return m;
 }
 
