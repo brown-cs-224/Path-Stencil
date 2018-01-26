@@ -4,6 +4,8 @@
 #include <BVH/Object.h>
 #include <BVH/BVH.h>
 
+#include "triangle.h"
+
 #include <util/tiny_obj_loader.h>
 
 #include <vector>
@@ -49,6 +51,9 @@ private:
     Eigen::Vector3f _centroid;
 
     BBox _bbox;
+
+    std::vector<Object *> *_objects;
+    Triangle *_triangles;
 
     void calculateMeshStats();
     void createMeshBVH();

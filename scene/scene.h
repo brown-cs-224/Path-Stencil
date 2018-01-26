@@ -15,6 +15,7 @@ class Scene
 {
 public:
     Scene();
+    virtual ~Scene();
 
     static bool load(QString filename, Scene **scenePointer);
 
@@ -30,6 +31,7 @@ public:
 private:
 
     BVH *m_bvh;
+    std::vector<Object *> *_objects;
 
     BasicCamera m_camera;
 

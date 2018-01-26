@@ -1,6 +1,5 @@
 #include "mesh.h"
 
-#include "triangle.h"
 
 #include <iostream>
 
@@ -28,7 +27,9 @@ void Mesh::init(const std::vector<Vector3f> &vertices,
 
 Mesh::~Mesh()
 {
-   delete _meshBvh;
+    delete _meshBvh;
+    delete _objects;
+    delete[] _triangles;
 }
 
 bool Mesh::getIntersection(const Ray &ray, IntersectionInfo *intersection) const
@@ -78,10 +79,9 @@ void Mesh::calculateMeshStats()
 
 void Mesh::createMeshBVH()
 {
-    Triangle *triArray = new Triangle[_faces.size()];
-    //TODO this leaks memory
-    std::vector<Object *> *objects = new std::vector<Object *>;
-    objects->resize(_faces.size());
+    _triangles = new Triangle[_faces.size()];
+    _objects = new std::vector<Object *>;
+    _objects->resize(_faces.size());
     for(unsigned int i = 0; i < _faces.size(); ++i) {
         Vector3i face = _faces[i];
         Vector3f v1 = _vertices[face(0)];
@@ -90,12 +90,10 @@ void Mesh::createMeshBVH()
         Vector3f n1 = _normals[face[0]];
         Vector3f n2 = _normals[face[1]];
         Vector3f n3 = _normals[face[2]];
-        triArray[i] = Triangle(v1, v2, v3, n1, n2, n3);
-        triArray[i].transform = transform;
-        (*objects)[i] = &triArray[i];
+        _triangles[i] = Triangle(v1, v2, v3, n1, n2, n3);
+        _triangles[i].transform = transform;
+        (*_objects)[i] = &_triangles[i];
     }
 
-    _meshBvh = new BVH(objects);
-
-    //delete[] triArray;
+    _meshBvh = new BVH(_objects);
 }

@@ -26,16 +26,13 @@ void PathTracer::traceScene(QRgb *imageData, const Scene& scene)
 
 QRgb PathTracer::tracePixel(int x, int y, const Scene& scene, const Matrix4f &invViewMatrix)
 {
-    if(x == 126 && y == 159) {
-        std::cout << "Test" << std::endl;
-    }
-    Vector4f p(0, 0, 0, 1);
-    Vector4f d((2.f * x / m_width) - 1, 1 - (2.f * y / m_height), -1, 0);
+    Vector3f p(0, 0, 0);
+    Vector3f d((2.f * x / m_width) - 1, 1 - (2.f * y / m_height), -1);
     d.normalize();
 
     Ray r;
-    r.setO(p.head<3>());
-    r.setD(d.head<3>());
+    r.setO(p);
+    r.setD(d);
     return traceRay(r, scene, invViewMatrix);
 }
 

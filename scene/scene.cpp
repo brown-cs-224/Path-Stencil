@@ -19,6 +19,16 @@ Scene::Scene()
 {
 }
 
+Scene::~Scene()
+{
+    for(unsigned int i = 0; i < _objects->size(); ++i) {
+        Object * o = (*_objects)[i];
+        delete o;
+    }
+    delete _objects;
+    delete m_bvh;
+}
+
 bool Scene::load(QString filename, Scene **scenePointer)
 {
     CS123XmlSceneParser parser(filename.toStdString());
@@ -61,16 +71,15 @@ void Scene::setBVH(const BVH &bvh)
 
 bool Scene::parseTree(CS123SceneNode *root, Scene *scene, const std::string &baseDir)
 {
-    //TODO this leaks memory right now
     std::vector<Object *> *objects = new std::vector<Object *>;
     parseNode(root, Affine3f::Identity(), objects, baseDir);
     if(objects->size() == 0) {
         return false;
     }
     std::cout << "Parsed tree, creating BVH" << std::endl;
-    //TODO this leaks memory right now
     BVH *bvh = new BVH(objects);
 
+    scene->_objects = objects;
     scene->setBVH(*bvh);
     return true;
 }
@@ -197,7 +206,6 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
     }
     std::cout << "Loaded " << faces.size() << " faces" << std::endl;
 
-    //TODO This leaks memory right now
     Mesh *m = new Mesh;
     m->init(vertices,
             normals,
