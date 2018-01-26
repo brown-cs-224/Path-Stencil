@@ -20,11 +20,7 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument("scene", "Scene file to be rendered");
     parser.addPositionalArgument("output", "Image file to write the rendered image to");
 
-    if(!parser.parse(QCoreApplication::arguments())) {
-        std::cerr << parser.errorText().toStdString() << std::endl;
-        a.exit(1);
-        return 1;
-    }
+    parser.process(a);
 
     const QStringList args = parser.positionalArguments();
     if(args.size() != 2) {
