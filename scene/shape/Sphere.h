@@ -22,8 +22,8 @@ struct Sphere : public Object {
   }
 
   bool getIntersection(const Ray& ray, IntersectionInfo* I) const {
-    Eigen::Vector3f s = center - ray.getO();
-    float sd = s.dot(ray.getD());
+    Eigen::Vector3f s = center - ray.o;
+    float sd = s.dot(ray.d);
     float ss = s.dot(s);
 
     // Compute discriminant

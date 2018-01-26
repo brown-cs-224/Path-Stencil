@@ -36,9 +36,7 @@ bool Mesh::getIntersection(const Ray &ray, IntersectionInfo *intersection) const
 {
 //    std::cout << "RAY" << std::endl;
 //    std::cout << ray.getO().transpose() << " " << ray.getD().transpose() << std::endl;
-    Ray r;
-    r.setO(transform * ray.getO());
-    r.setD(transform.linear().inverse().transpose() * ray.getD());
+    Ray r(ray.transform(transform));
 //    std::cout << r.getO().transpose() << " " << r.getD().transpose() << std::endl;
     IntersectionInfo i;
     bool col = _meshBvh->getIntersection(r, &i, false);
