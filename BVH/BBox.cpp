@@ -59,10 +59,10 @@ static const float __attribute__((aligned(16)))
 ps_cst_plus_inf[4] = {  flt_plus_inf,  flt_plus_inf,  flt_plus_inf,  flt_plus_inf },
 ps_cst_minus_inf[4] = { -flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_inf };
 bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
-    Vector4f _min(min(0), min(1), min(2));
-    Vector4f _max(max(0), max(1), max(2));
-    Vector4f _o(ray.o(0), ray.o(1), ray.o(2));
-    Vector4f _inv_d(ray.inv_d(0), ray.inv_d(1), ray.inv_d(2));
+    Vector3 _min(min(0), min(1), min(2));
+    Vector3 _max(max(0), max(1), max(2));
+    Vector3 _o(ray.o(0), ray.o(1), ray.o(2));
+    Vector3 _inv_d(ray.inv_d(0), ray.inv_d(1), ray.inv_d(2));
 
     // you may already have those values hanging around somewhere
     const __m128
