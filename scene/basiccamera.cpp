@@ -2,8 +2,9 @@
 
 using namespace Eigen;
 
-BasicCamera::BasicCamera(Vector3f position, Vector3f direction, Vector3f up)
-    : m_position(position), m_direction(direction), m_up(up)
+BasicCamera::BasicCamera(Vector3f position, Vector3f direction, Vector3f up, float heightAngle, float aspect)
+    : m_position(position), m_direction(direction), m_up(up),
+      m_heightAngle(heightAngle), m_aspectRatio(aspect)
 {
 }
 
@@ -20,4 +21,16 @@ Matrix4f BasicCamera::getViewMatrix() const
             -f.x(),-f.y(),-f.z(), f.dot(m_position),
             0, 0, 0, 1;
     return Result;
+}
+
+Matrix4f BasicCamera::getScaleMatrix() const
+{
+    float heightAngleRads = 2 * M_PI * m_heightAngle / 180.f;
+    float tanThetaH = tan(heightAngleRads);
+    float tanThetaW = m_aspectRatio * tanThetaH;
+
+    Matrix4f scale = Matrix4f::Identity();
+    scale(0, 0) = 1 / tanThetaW;
+    scale(1, 1) = 1 / tanThetaH;
+    return scale;
 }

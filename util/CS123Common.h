@@ -22,6 +22,9 @@
 
 typedef float REAL;
 
+#define IMAGE_WIDTH 400
+#define IMAGE_HEIGHT 400
+
 // ---------------------
 // Common math utilities
 // ---------------------

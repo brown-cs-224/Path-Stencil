@@ -15,7 +15,7 @@ PathTracer::PathTracer(int width, int height)
 
 void PathTracer::traceScene(QRgb *imageData, const Scene& scene)
 {
-    Matrix4f invViewMat = scene.getCamera().getViewMatrix().inverse();
+    Matrix4f invViewMat = (scene.getCamera().getScaleMatrix() * scene.getCamera().getViewMatrix()).inverse();
     for(int y = 0; y < m_height; ++y) {
         for(int x = 0; x < m_width; ++x) {
             int offset = x + (y * m_width);

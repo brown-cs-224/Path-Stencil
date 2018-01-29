@@ -4,6 +4,8 @@
 
 #include <util/CS123XmlSceneParser.h>
 
+#include <util/CS123Common.h>
+
 #include <Eigen/Geometry>
 
 #include <iostream>
@@ -39,7 +41,9 @@ bool Scene::load(QString filename, Scene **scenePointer)
     parser.getCameraData(cameraData);
     BasicCamera camera(cameraData.pos.head<3>(),
                        cameraData.look.head<3>(),
-                       cameraData.up.head<3>());
+                       cameraData.up.head<3>(),
+                       cameraData.heightAngle,
+                       (float)IMAGE_WIDTH / (float)IMAGE_HEIGHT);
     Scene *scene = new Scene;
     scene->setCamera(camera);
 

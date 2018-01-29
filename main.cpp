@@ -8,8 +8,7 @@
 
 #include <QImage>
 
-#define IMAGE_WIDTH 400
-#define IMAGE_HEIGHT 400
+#include "util/CS123Common.h"
 
 int main(int argc, char *argv[])
 {
