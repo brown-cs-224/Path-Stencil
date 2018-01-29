@@ -9,7 +9,7 @@ struct Ray {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
     Ray(const Eigen::Vector3f o, const Eigen::Vector3f d)
-        :o(o), d(d), inv_d(Eigen::Vector3f(1, 1, 1).cwiseQuotient(d)){}
+        :o(o), d(d.normalized()), inv_d(Eigen::Vector3f(1, 1, 1).cwiseQuotient(d).normalized()){}
 
     Ray transform(Eigen::Matrix4f mat) const {
         Eigen::Vector4f oo = mat * vec3Tovec4(o, 1);

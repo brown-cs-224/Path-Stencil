@@ -36,8 +36,14 @@ QRgb PathTracer::tracePixel(int x, int y, const Scene& scene, const Matrix4f &in
 
 QRgb PathTracer::traceRay(const Ray& r, const Scene& scene, const Matrix4f& invViewMatrix)
 {
+    static bool printed = false;
     IntersectionInfo i;
     Ray ray(r.transform(invViewMatrix));
+    if(!printed) {
+        std::cout << ray.o.transpose() << std::endl;
+        std::cout << ray.d.transpose() << std::endl;
+        printed = true;
+    }
     if(scene.getBVH().getIntersection(ray, &i, true)) {
         return qRgb(255, 255, 255);
     } else {

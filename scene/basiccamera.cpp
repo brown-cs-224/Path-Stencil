@@ -1,5 +1,7 @@
 #include "basiccamera.h"
 
+#include <iostream>
+
 using namespace Eigen;
 
 BasicCamera::BasicCamera(Vector3f position, Vector3f direction, Vector3f up, float heightAngle, float aspect)
@@ -25,12 +27,13 @@ Matrix4f BasicCamera::getViewMatrix() const
 
 Matrix4f BasicCamera::getScaleMatrix() const
 {
-    float heightAngleRads = 2 * M_PI * m_heightAngle / 180.f;
+    float heightAngleRads = M_PI * m_heightAngle / 360.f;//We need half the angle
     float tanThetaH = tan(heightAngleRads);
     float tanThetaW = m_aspectRatio * tanThetaH;
 
     Matrix4f scale = Matrix4f::Identity();
     scale(0, 0) = 1 / tanThetaW;
     scale(1, 1) = 1 / tanThetaH;
+    std::cout << scale << std::endl;
     return scale;
 }
