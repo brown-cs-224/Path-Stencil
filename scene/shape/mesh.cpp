@@ -62,6 +62,36 @@ Vector3f Mesh::getCentroid() const
     return _centroid;
 }
 
+const Vector3i Mesh::getTriangleIndices(int faceIndex) const
+{
+    return _faces[faceIndex];
+}
+
+const tinyobj::material_t &Mesh::getMaterial(int faceIndex) const
+{
+    return _materials[_materialIds[faceIndex]];
+}
+
+const Vector3f Mesh::getVertex(int vertexIndex) const
+{
+    return _vertices[vertexIndex];
+}
+
+const Vector3f Mesh::getNormal(int vertexIndex) const
+{
+    return _normals[vertexIndex];
+}
+
+const Vector3f Mesh::getColor(int vertexIndex) const
+{
+    return _colors[vertexIndex];
+}
+
+const Vector2f Mesh::getUV(int vertexIndex) const
+{
+    return _uvs[vertexIndex];
+}
+
 void Mesh::calculateMeshStats()
 {
     _bbox.setP(_vertices[0]);
@@ -85,7 +115,7 @@ void Mesh::createMeshBVH()
         Vector3f n1 = _normals[face[0]];
         Vector3f n2 = _normals[face[1]];
         Vector3f n3 = _normals[face[2]];
-        _triangles[i] = Triangle(v1, v2, v3, n1, n2, n3);
+        _triangles[i] = Triangle(v1, v2, v3, n1, n2, n3, i);
         _triangles[i].transform = transform;
         (*_objects)[i] = &_triangles[i];
     }

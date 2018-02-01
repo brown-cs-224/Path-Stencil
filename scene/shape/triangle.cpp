@@ -8,8 +8,8 @@ Triangle::Triangle()
 {
 }
 
-Triangle::Triangle(Vector3f v1, Vector3f v2, Vector3f v3, Vector3f n1, Vector3f n2, Vector3f n3)
-    : _v1(v1), _v2(v2), _v3(v3), _n1(n1), _n2(n2), _n3(n3)
+Triangle::Triangle(Vector3f v1, Vector3f v2, Vector3f v3, Vector3f n1, Vector3f n2, Vector3f n3, int index)
+    : _v1(v1), _v2(v2), _v3(v3), _n1(n1), _n2(n2), _n3(n3), m_index(index)
 {
     _centroid = (_v1 + _v2 + _v3) / 3.f;
     _bbox.setP(_v1);
@@ -85,4 +85,9 @@ BBox Triangle::getBBox() const
 Vector3f Triangle::getCentroid() const
 {
     return (_v1 + _v2 + _v3) / 3.f;
+}
+
+int Triangle::getIndex() const
+{
+    return m_index;
 }

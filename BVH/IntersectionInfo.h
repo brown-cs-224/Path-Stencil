@@ -9,7 +9,7 @@ struct IntersectionInfo {
   float t; // Intersection distance along the ray
   const Object* object; // Object that was hit
   Eigen::Vector3f hit; // Location of the intersection
-  const void *data;
+  const void *data = nullptr;
 };
 
 #endif

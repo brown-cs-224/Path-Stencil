@@ -37,6 +37,14 @@ public:
 
     virtual Eigen::Vector3f getCentroid() const;
 
+    const Eigen::Vector3i getTriangleIndices(int faceIndex) const;
+    const tinyobj::material_t& getMaterial(int faceIndex) const;
+
+    const Eigen::Vector3f getVertex(int vertexIndex) const;
+    const Eigen::Vector3f getNormal(int vertexIndex) const;
+    const Eigen::Vector3f getColor(int vertexIndex) const;
+    const Eigen::Vector2f getUV(int vertexIndex) const;
+
 private:
     std::vector<Eigen::Vector3f> _vertices;
     std::vector<Eigen::Vector3f> _normals;
