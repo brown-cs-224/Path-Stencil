@@ -5,6 +5,7 @@
 
 #include "scene/scene.h"
 
+
 class PathTracer
 {
 public:
@@ -15,9 +16,10 @@ public:
 private:
     int m_width, m_height;
 
-    QRgb tracePixel(int x, int y, const Scene &scene, const Eigen::Matrix4f &invViewMatrix);
+    void toneMap(QRgb *imageData, Eigen::Vector3f *intensityValues);
 
-    QRgb traceRay(const Ray& r, const Scene &scene, const Eigen::Matrix4f &invViewMatrix);
+    Eigen::Vector3f tracePixel(int x, int y, const Scene &scene, const Eigen::Matrix4f &invViewMatrix);
+    Eigen::Vector3f traceRay(const Ray& r, const Scene &scene, const Eigen::Matrix4f &invViewMatrix);
 };
 
 #endif // PATHTRACER_H

@@ -247,3 +247,8 @@ void Scene::addLight(const CS123SceneLightData &data)
     m_lights.push_back(data);
 }
 
+const std::vector<CS123SceneLightData> &Scene::getLights()
+{
+    return m_lights;
+}
+

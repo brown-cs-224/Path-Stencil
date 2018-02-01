@@ -34,6 +34,5 @@ Matrix4f BasicCamera::getScaleMatrix() const
     Matrix4f scale = Matrix4f::Identity();
     scale(0, 0) = 1 / tanThetaW;
     scale(1, 1) = 1 / tanThetaH;
-    std::cout << scale << std::endl;
     return scale;
 }

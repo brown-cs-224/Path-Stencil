@@ -47,8 +47,13 @@ int main(int argc, char *argv[])
     delete scene;
 
     bool success = image.save(output);
+    if(!success) {
+        success = image.save(output, "PNG");
+    }
     if(success) {
         std::cout << "Wrote rendered image to " << output.toStdString() << std::endl;
+    } else {
+        std::cerr << "Error: failed to write image to " << output.toStdString() << std::endl;
     }
     a.exit();
 }

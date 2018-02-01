@@ -15,16 +15,19 @@ PathTracer::PathTracer(int width, int height)
 
 void PathTracer::traceScene(QRgb *imageData, const Scene& scene)
 {
+    Vector3f intensityValues[m_width * m_height];
     Matrix4f invViewMat = (scene.getCamera().getScaleMatrix() * scene.getCamera().getViewMatrix()).inverse();
     for(int y = 0; y < m_height; ++y) {
         for(int x = 0; x < m_width; ++x) {
             int offset = x + (y * m_width);
-            imageData[offset] = tracePixel(x, y, scene, invViewMat);
+            intensityValues[offset] = tracePixel(x, y, scene, invViewMat);
         }
     }
+
+    toneMap(imageData, intensityValues);
 }
 
-QRgb PathTracer::tracePixel(int x, int y, const Scene& scene, const Matrix4f &invViewMatrix)
+Vector3f PathTracer::tracePixel(int x, int y, const Scene& scene, const Matrix4f &invViewMatrix)
 {
     Vector3f p(0, 0, 0);
     Vector3f d((2.f * x / m_width) - 1, 1 - (2.f * y / m_height), -1);
@@ -34,19 +37,23 @@ QRgb PathTracer::tracePixel(int x, int y, const Scene& scene, const Matrix4f &in
     return traceRay(r, scene, invViewMatrix);
 }
 
-QRgb PathTracer::traceRay(const Ray& r, const Scene& scene, const Matrix4f& invViewMatrix)
+Vector3f PathTracer::traceRay(const Ray& r, const Scene& scene, const Matrix4f& invViewMatrix)
 {
-    static bool printed = false;
     IntersectionInfo i;
     Ray ray(r.transform(invViewMatrix));
-    if(!printed) {
-        std::cout << ray.o.transpose() << std::endl;
-        std::cout << ray.d.transpose() << std::endl;
-        printed = true;
-    }
     if(scene.getBVH().getIntersection(ray, &i, true)) {
-        return qRgb(255, 255, 255);
+        return Vector3f(1, 1, 1);
     } else {
-        return qRgb(40, 40, 40);
+        return Vector3f(0, 0, 0);
     }
+}
+
+void PathTracer::toneMap(QRgb *imageData, Vector3f *intensityValues) {
+    for(int y = 0; y < m_height; ++y) {
+        for(int x = 0; x < m_width; ++x) {
+            int offset = x + (y * m_width);
+            imageData[offset] = intensityValues[offset].norm() > 0 ? qRgb(255, 255, 255) : qRgb(40, 40, 40);
+        }
+    }
+
 }
