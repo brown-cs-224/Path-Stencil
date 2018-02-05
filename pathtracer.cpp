@@ -42,11 +42,18 @@ Vector3f PathTracer::traceRay(const Ray& r, const Scene& scene, const Matrix4f& 
     IntersectionInfo i;
     Ray ray(r.transform(invViewMatrix));
     if(scene.getBVH().getIntersection(ray, &i, false)) {
+        // // ** Example code for accessing the per-object material provided by the scene file **
+        //const Mesh * m = static_cast<const Mesh *>(i.object);//Get the mesh that was intersected
+        //const CS123SceneMaterial &material = m->getMaterialForWholeObject(); // Get per-object material
+        //const Vector4f diffuse = material.cDiffuse; // Diffuse coefficient as RGBA vector
+
+        // // ** Example code for accessing per-face materials provided by a .mtl file **
         //const Mesh * m = static_cast<const Mesh *>(i.object);//Get the mesh that was intersected
         //const Triangle *t = static_cast<const Triangle *>(i.data);//Get the triangle in the mesh that was intersected
         //const tinyobj::material_t& mat = m->getMaterial(t->getIndex());//Get the material of the triangle from the mesh
-        //const tinyobj::real_t *d = mat.diffuse;//Diffuse color
+        //const tinyobj::real_t *d = mat.diffuse;//Diffuse color, pointer to an array of 3 floats
         //const std::string diffuseTex = mat.diffuse_texname;//Diffuse texture name
+
         return Vector3f(1, 1, 1);
     } else {
         return Vector3f(0, 0, 0);

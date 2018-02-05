@@ -120,7 +120,7 @@ void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, s
     switch(prim->type) {
     case PrimitiveType::PRIMITIVE_MESH:
         std::cout << "Loading mesh " << prim->meshfile << std::endl;
-        objects->push_back(loadMesh(prim->meshfile, transform, baseDir));
+        objects->push_back(loadMesh(prim->meshfile, prim->material, transform, baseDir));
         std::cout << "Done loading mesh" << std::endl;
         break;
     default:
@@ -129,7 +129,7 @@ void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, s
     }
 }
 
-Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std::string &baseDir)
+Mesh *Scene::loadMesh(std::string filePath, const CS123SceneMaterial & material, const Affine3f &transform, const std::string &baseDir)
 {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
@@ -217,7 +217,8 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
             colors,
             faces,
             materialIds,
-            materials);
+            materials,
+            material);
     m->transform = transform.inverse();
     return m;
 }

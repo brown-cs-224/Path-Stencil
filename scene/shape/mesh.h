@@ -12,6 +12,8 @@
 
 #include <Eigen/StdVector>
 
+#include "util/CS123SceneData.h"
+
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix2f)
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix3f)
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix3i)
@@ -27,7 +29,8 @@ public:
          const std::vector<Eigen::Vector3f> &colors,
          const std::vector<Eigen::Vector3i> &faces,
          const std::vector<int> &materialIds,
-         const std::vector<tinyobj::material_t> &materials);
+         const std::vector<tinyobj::material_t> &materials,
+         const CS123SceneMaterial &wholeObjectMaterial);
 
     virtual bool getIntersection(const Ray &ray, IntersectionInfo *intersection) const;
 
@@ -45,7 +48,13 @@ public:
     const Eigen::Vector3f getColor(int vertexIndex) const;
     const Eigen::Vector2f getUV(int vertexIndex) const;
 
+    const CS123SceneMaterial getMaterialForWholeObject() const;
+
 private:
+    // Properties fromt the scene file
+    CS123SceneMaterial _wholeObjectMaterial;
+
+    // Properties from the .obj file
     std::vector<Eigen::Vector3f> _vertices;
     std::vector<Eigen::Vector3f> _normals;
     std::vector<Eigen::Vector3f> _colors;
