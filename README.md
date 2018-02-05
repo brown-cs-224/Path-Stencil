@@ -9,6 +9,8 @@ The compiled application takes two command line arguments.
 The first argument is the path to the scene file that is being loaded to be rendered.
 The second argument is the path of the file that the rendered image will be written out to.
 
+To set these command line arguments in QT, go to the Projects tab on the left, under build and run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
+
 Additional command line arguments can be added in main.cpp. The stencil code uses QCommandLineParser to parse the command line arguments, so take a look at the documentation if you want to add more arguments.
 
 About the code:
