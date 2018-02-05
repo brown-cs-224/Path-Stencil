@@ -23,6 +23,6 @@ In the scene directory, there is the Mesh class, which represents the objects th
 Scene files:
 The stencil code uses a modified version of the CS123 scene files, which are xml files. The full spec for the scene files can be found in scenefile.pdf, however the stencil code only supports primitives of type "mesh". It does not support cubes, cylinders, etc., however meshes can be used to get any of those shapes, and if you want, you can add support for primitives. The materials of the scenefile can be used, or the materials that are parsed from each meshes associated .mat file can be used, whichever you find better.
 
-Two example scenes can be found in the example-scenes directory. One of them should render a motorcycle, and the other should render a medieval boat.
+Some example scenes can be found in the example-scenes directory. One of them should render a motorcycle, another should render a medieval boat, and the last should just render a cube with different color faces.
 
 Because pathtracers don't use point lights, but instead use area light, you can either create area lights in the scene file or create meshes in your scene that have emissive materials. To create area lights in the scene, create a light whose type is area, and specify a position, color, direction, width, and height. An example of an area light defined in a scene file can be found in the example scene scene1.xml.
