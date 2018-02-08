@@ -45,6 +45,8 @@ public:
     const Eigen::Vector3f getColor(int vertexIndex) const;
     const Eigen::Vector2f getUV(int vertexIndex) const;
 
+    virtual void setTransform(Eigen::Affine3f transform) override;
+
 private:
     std::vector<Eigen::Vector3f> _vertices;
     std::vector<Eigen::Vector3f> _normals;
@@ -59,6 +61,7 @@ private:
     Eigen::Vector3f _centroid;
 
     BBox _bbox;
+    BBox transformed_bbox;
 
     std::vector<Object *> *_objects;
     Triangle *_triangles;

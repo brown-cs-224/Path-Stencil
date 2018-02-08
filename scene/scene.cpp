@@ -218,7 +218,7 @@ Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std
             faces,
             materialIds,
             materials);
-    m->transform = transform.inverse();
+    m->setTransform(transform);
     return m;
 }
 

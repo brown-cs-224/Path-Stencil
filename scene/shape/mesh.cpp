@@ -34,7 +34,7 @@ Mesh::~Mesh()
 
 bool Mesh::getIntersection(const Ray &ray, IntersectionInfo *intersection) const
 {
-    Ray r(ray.transform(transform));
+    Ray r(ray.transform(inverseTransform));
     IntersectionInfo i;
     bool col = _meshBvh->getIntersection(r, &i, false);
     if(col) {
@@ -54,12 +54,12 @@ Vector3f Mesh::getNormal(const IntersectionInfo &I) const
 
 BBox Mesh::getBBox() const
 {
-    return _bbox;
+    return transformed_bbox;
 }
 
 Vector3f Mesh::getCentroid() const
 {
-    return _centroid;
+    return transform * _centroid;
 }
 
 const Vector3i Mesh::getTriangleIndices(int faceIndex) const
@@ -92,6 +92,15 @@ const Vector2f Mesh::getUV(int vertexIndex) const
     return _uvs[vertexIndex];
 }
 
+void Mesh::setTransform(Affine3f transform)
+{
+    Object::setTransform(transform);
+    transformed_bbox = BBox();
+    Vector3f min = _bbox.min;
+    transformed_bbox.setP(transform * min);
+    transformed_bbox.expandToInclude(transform * _bbox.max);
+}
+
 void Mesh::calculateMeshStats()
 {
     _bbox.setP(_vertices[0]);
@@ -99,6 +108,7 @@ void Mesh::calculateMeshStats()
         _centroid += v;
         _bbox.expandToInclude(v);
     }
+    transformed_bbox = _bbox;
     _centroid /= _vertices.size();
 }
 
@@ -116,7 +126,6 @@ void Mesh::createMeshBVH()
         Vector3f n2 = _normals[face[1]];
         Vector3f n3 = _normals[face[2]];
         _triangles[i] = Triangle(v1, v2, v3, n1, n2, n3, i);
-        _triangles[i].transform = transform;
         (*_objects)[i] = &_triangles[i];
     }
 

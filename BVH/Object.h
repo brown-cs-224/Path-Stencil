@@ -11,7 +11,7 @@
 
 struct Object {
     Object() {
-        transform = Eigen::Affine3f::Identity();
+        transform = inverseTransform = normalTransform = inverseNormalTransform = Eigen::Affine3f::Identity();
     }
     virtual ~Object(){}
   //! All "Objects" must be able to test for intersections with rays.
@@ -31,7 +31,17 @@ struct Object {
 
     CS123SceneMaterial material;
 
+    virtual void setTransform(const Eigen::Affine3f transform) {
+        this->transform = transform;
+        this->inverseTransform = transform.inverse();
+        this->normalTransform = transform.linear();
+        this->inverseNormalTransform = transform.linear().inverse().transpose();
+    }
+
     Eigen::Affine3f transform;
+    Eigen::Affine3f normalTransform;
+    Eigen::Affine3f inverseTransform;
+    Eigen::Affine3f inverseNormalTransform;
 };
 
 #endif
