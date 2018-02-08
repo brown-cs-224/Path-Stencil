@@ -29,9 +29,6 @@ void PathTracer::traceScene(QRgb *imageData, const Scene& scene)
 
 Vector3f PathTracer::tracePixel(int x, int y, const Scene& scene, const Matrix4f &invViewMatrix)
 {
-    if(x == 18 && y == 70) {
-        std::cout << "tesT" << std::endl;
-    }
     Vector3f p(0, 0, 0);
     Vector3f d((2.f * x / m_width) - 1, 1 - (2.f * y / m_height), -1);
     d.normalize();
@@ -67,9 +64,7 @@ void PathTracer::toneMap(QRgb *imageData, Vector3f *intensityValues) {
     for(int y = 0; y < m_height; ++y) {
         for(int x = 0; x < m_width; ++x) {
             int offset = x + (y * m_width);
-            Vector3f i = intensityValues[offset];
-            imageData[offset] = qRgb(255 * i.x(), 255 * i.y(), 255 * i.z());
-//            imageData[offset] = intensityValues[offset].norm() > 0 ? qRgb(255, 255, 255) : qRgb(40, 40, 40);
+            imageData[offset] = intensityValues[offset].norm() > 0 ? qRgb(255, 255, 255) : qRgb(40, 40, 40);
         }
     }
 
