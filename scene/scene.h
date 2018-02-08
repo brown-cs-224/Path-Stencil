@@ -44,7 +44,7 @@ private:
     static bool parseTree(CS123SceneNode *root, Scene *scene, const std::string& baseDir);
     static void parseNode(CS123SceneNode *node, const Eigen::Affine3f &parentTransform, std::vector<Object *> *objects, const std::string& baseDir);
     static void addPrimitive(CS123ScenePrimitive *prim, const Eigen::Affine3f &transform, std::vector<Object *> *objects, const std::string& baseDir);
-    static Mesh *loadMesh(std::string filePath, const Eigen::Affine3f &transform, const std::string& baseDir);
+    static Mesh *loadMesh(std::string filePath, const CS123SceneMaterial &material, const Eigen::Affine3f &transform, const std::string& baseDir);
 };
 
 #endif // SCENE_H

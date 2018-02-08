@@ -12,7 +12,8 @@ void Mesh::init(const std::vector<Vector3f> &vertices,
            const std::vector<Vector3f> &colors,
            const std::vector<Vector3i> &faces,
            const std::vector<int> &materialIds,
-           const std::vector<tinyobj::material_t> &materials)
+           const std::vector<tinyobj::material_t> &materials,
+           const CS123SceneMaterial &wholeObjectMaterial)
 {
     _vertices = vertices;
     _normals = normals;
@@ -21,6 +22,7 @@ void Mesh::init(const std::vector<Vector3f> &vertices,
     _faces = faces;
     _materialIds = materialIds;
     _materials = materials;
+    _wholeObjectMaterial = wholeObjectMaterial;
     calculateMeshStats();
     createMeshBVH();
 }
@@ -99,6 +101,11 @@ void Mesh::setTransform(Affine3f transform)
     Vector3f min = _bbox.min;
     transformed_bbox.setP(transform * min);
     transformed_bbox.expandToInclude(transform * _bbox.max);
+}
+
+const CS123SceneMaterial Mesh::getMaterialForWholeObject() const
+{
+    return _wholeObjectMaterial;
 }
 
 void Mesh::calculateMeshStats()
