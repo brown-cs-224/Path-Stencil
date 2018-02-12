@@ -58,7 +58,7 @@ Vector3f Triangle::getNormal(const IntersectionInfo &I) const
     Vector3f p = I.hit;
     Vector3f v0 = _v2 - _v1;
     Vector3f v1 = _v3 - _v1;
-    Vector3f v2 = p - _v2;
+    Vector3f v2 = p - _v1;
     float d00 = v0.dot(v0);
     float d01 = v0.dot(v1);
     float d11 = v1.dot(v1);
