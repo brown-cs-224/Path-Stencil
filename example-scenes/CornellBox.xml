@@ -9,7 +9,7 @@
 	<object type="tree" name="root">
 		<transblock>
 			<translate x="0" y="0" z="0"/>
-			<object type="primitive" name="mesh" filename="models/CornellBox-Original.obj">
+			<object type="primitive" name="mesh" filename="models/CornellBox/CornellBox-Original.obj">
 			</object>
 		</transblock>
 	</object>
