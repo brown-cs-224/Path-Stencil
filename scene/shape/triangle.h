@@ -15,6 +15,7 @@ public:
     virtual bool getIntersection(const Ray &ray, IntersectionInfo *intersection) const;
 
     virtual Eigen::Vector3f getNormal(const IntersectionInfo &I) const;
+    virtual Eigen::Vector3f getNormal(const Eigen::Vector3f &p) const;
 
     virtual BBox getBBox() const;
 

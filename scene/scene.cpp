@@ -120,7 +120,7 @@ void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, s
     switch(prim->type) {
     case PrimitiveType::PRIMITIVE_MESH:
         std::cout << "Loading mesh " << prim->meshfile << std::endl;
-        objects->push_back(loadMesh(prim->meshfile, prim->material, transform, baseDir));
+        objects->push_back(loadMesh(prim->meshfile, transform, baseDir));
         std::cout << "Done loading mesh" << std::endl;
         break;
     default:
@@ -129,7 +129,7 @@ void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, s
     }
 }
 
-Mesh *Scene::loadMesh(std::string filePath, const CS123SceneMaterial & material, const Affine3f &transform, const std::string &baseDir)
+Mesh *Scene::loadMesh(std::string filePath, const Affine3f &transform, const std::string &baseDir)
 {
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
@@ -195,10 +195,10 @@ Mesh *Scene::loadMesh(std::string filePath, const CS123SceneMaterial & material,
                 tinyobj::real_t blue = attrib.colors[3*idx.vertex_index+2];
 
                 face[v] = vertices.size();
-//                vertices.push_back(transform * Vector3f(vx, vy, vz));
-//                normals.push_back((transform.linear().inverse().transpose() * Vector3f(nx, ny, nz)).normalized());
-                vertices.push_back(Vector3f(vx, vy, vz));
-                normals.push_back(Vector3f(nx, ny, nz).normalized());
+                vertices.push_back(transform * Vector3f(vx, vy, vz));
+                normals.push_back((transform.linear() * Vector3f(nx, ny, nz)).normalized());
+                //vertices.push_back(Vector3f(vx, vy, vz));
+                //normals.push_back(Vector3f(nx, ny, nz).normalized());
                 uvs.push_back(Vector2f(tx, ty));
                 colors.push_back(Vector3f(red, green, blue));
             }
@@ -217,8 +217,7 @@ Mesh *Scene::loadMesh(std::string filePath, const CS123SceneMaterial & material,
             colors,
             faces,
             materialIds,
-            materials,
-            material);
+            materials);
     m->setTransform(transform);
     return m;
 }

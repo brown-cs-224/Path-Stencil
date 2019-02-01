@@ -19,7 +19,7 @@ private:
     void toneMap(QRgb *imageData, Eigen::Vector3f *intensityValues);
 
     Eigen::Vector3f tracePixel(int x, int y, const Scene &scene, const Eigen::Matrix4f &invViewMatrix);
-    Eigen::Vector3f traceRay(const Ray& r, const Scene &scene, const Eigen::Matrix4f &invViewMatrix);
+    Eigen::Vector3f traceRay(const Ray& r, const Scene &scene);
 };
 
 #endif // PATHTRACER_H

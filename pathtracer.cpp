@@ -18,9 +18,18 @@ void PathTracer::traceScene(QRgb *imageData, const Scene& scene)
     Vector3f intensityValues[m_width * m_height];
     Matrix4f invViewMat = (scene.getCamera().getScaleMatrix() * scene.getCamera().getViewMatrix()).inverse();
     for(int y = 0; y < m_height; ++y) {
+        std::cout<<y<<"\n";
+        //#pragma omp parallel for
         for(int x = 0; x < m_width; ++x) {
             int offset = x + (y * m_width);
-            intensityValues[offset] = tracePixel(x, y, scene, invViewMat);
+            //intensityValues[offset] = tracePixel(x, y, scene, invViewMat);
+            //TEST CODE
+            intensityValues[offset] = Vector3f(0.0,0.0,0.0);
+            for (int rays=0; rays<50; ++rays){
+                intensityValues[offset] += tracePixel(x, y, scene, invViewMat);
+            }
+            intensityValues[offset] /= 50;
+            //
         }
     }
 
@@ -34,19 +43,15 @@ Vector3f PathTracer::tracePixel(int x, int y, const Scene& scene, const Matrix4f
     d.normalize();
 
     Ray r(p, d);
-    return traceRay(r, scene, invViewMatrix);
+    r = r.transform(invViewMatrix);
+    return traceRay(r, scene);
 }
 
-Vector3f PathTracer::traceRay(const Ray& r, const Scene& scene, const Matrix4f& invViewMatrix)
+Vector3f PathTracer::traceRay(const Ray& r, const Scene& scene)
 {
     IntersectionInfo i;
-    Ray ray(r.transform(invViewMatrix));
+    Ray ray(r);
     if(scene.getBVH().getIntersection(ray, &i, false)) {
-          // ** Example code for accessing the per-object material provided by the scene file **
-//        const Mesh * m = static_cast<const Mesh *>(i.object);//Get the mesh that was intersected
-//        const CS123SceneMaterial &material = m->getMaterialForWholeObject(); // Get per-object material
-//        const Vector4f diffuse = material.cDiffuse; // Diffuse coefficient as RGBA vector
-
           //** Example code for accessing per-face materials provided by a .mtl file **
 //        const Mesh * m = static_cast<const Mesh *>(i.object);//Get the mesh that was intersected
 //        const Triangle *t = static_cast<const Triangle *>(i.data);//Get the triangle in the mesh that was intersected
@@ -64,7 +69,7 @@ void PathTracer::toneMap(QRgb *imageData, Vector3f *intensityValues) {
     for(int y = 0; y < m_height; ++y) {
         for(int x = 0; x < m_width; ++x) {
             int offset = x + (y * m_width);
-            imageData[offset] = intensityValues[offset].norm() > 0 ? qRgb(255, 255, 255) : qRgb(40, 40, 40);
+            //imageData[offset] = intensityValues[offset].norm() > 0 ? qRgb(255, 255, 255) : qRgb(40, 40, 40);
         }
     }
 

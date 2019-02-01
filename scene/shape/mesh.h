@@ -29,8 +29,7 @@ public:
          const std::vector<Eigen::Vector3f> &colors,
          const std::vector<Eigen::Vector3i> &faces,
          const std::vector<int> &materialIds,
-         const std::vector<tinyobj::material_t> &materials,
-         const CS123SceneMaterial &wholeObjectMaterial);
+         const std::vector<tinyobj::material_t> &materials);
 
     virtual bool getIntersection(const Ray &ray, IntersectionInfo *intersection) const;
 
@@ -49,11 +48,10 @@ public:
     const Eigen::Vector2f getUV(int vertexIndex) const;
 
     virtual void setTransform(Eigen::Affine3f transform) override;
-    const CS123SceneMaterial getMaterialForWholeObject() const;
 
 private:
     // Properties fromt the scene file
-    CS123SceneMaterial _wholeObjectMaterial;
+    //CS123SceneMaterial _wholeObjectMaterial;
 
     // Properties from the .obj file
     std::vector<Eigen::Vector3f> _vertices;

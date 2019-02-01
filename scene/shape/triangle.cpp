@@ -56,6 +56,10 @@ Vector3f Triangle::getNormal(const IntersectionInfo &I) const
 {
     //Calculate Barycentric coordinates to get interpolated normal
     Vector3f p = I.hit;
+    return getNormal(p);
+}
+
+Vector3f Triangle::getNormal(const Vector3f &p) const{
     Vector3f v0 = _v2 - _v1;
     Vector3f v1 = _v3 - _v1;
     Vector3f v2 = p - _v1;

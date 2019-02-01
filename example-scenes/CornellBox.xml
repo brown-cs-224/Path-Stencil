@@ -8,8 +8,9 @@
 
 	<object type="tree" name="root">
 		<transblock>
-			<translate x="0" y="0" z="0"/>
-			<object type="primitive" name="mesh" filename="models/CornellBox/CornellBox-Original.obj">
+			<translate x="0" y="2" z="0"/>
+                        <rotate x="0" y="0" z="1" angle="180"/>
+			<object type="primitive" name="mesh" filename="CornellBox/CornellBox-Glossy.obj">
 			</object>
 		</transblock>
 	</object>
