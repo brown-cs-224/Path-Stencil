@@ -11,6 +11,8 @@
 
 #include "shape/mesh.h"
 
+#include <memory>
+
 class Scene
 {
 public:
@@ -29,6 +31,8 @@ public:
     void addLight(const CS123SceneLightData& data);
 
     const std::vector<CS123SceneLightData>& getLights();
+
+    bool getIntersection(const Ray& ray, IntersectionInfo* I) const;
 
 private:
 

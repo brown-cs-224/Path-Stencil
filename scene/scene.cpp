@@ -252,3 +252,7 @@ const std::vector<CS123SceneLightData> &Scene::getLights()
     return m_lights;
 }
 
+bool Scene::getIntersection(const Ray& ray, IntersectionInfo* I) const{
+    return getBVH().getIntersection(ray, I, false);
+}
+

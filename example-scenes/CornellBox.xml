@@ -10,7 +10,7 @@
 		<transblock>
 			<translate x="0" y="2" z="0"/>
                         <rotate x="0" y="0" z="1" angle="180"/>
-			<object type="primitive" name="mesh" filename="CornellBox/CornellBox-Glossy.obj">
+			<object type="primitive" name="mesh" filename="models/CornellBox/CornellBox-Original.obj">
 			</object>
 		</transblock>
 	</object>
