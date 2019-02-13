@@ -53,12 +53,14 @@ Vector3f Mesh::getNormal(const IntersectionInfo &I) const
 
 BBox Mesh::getBBox() const
 {
-    return transformed_bbox;
+    //return transformed_bbox;
+    return _bbox;
 }
 
 Vector3f Mesh::getCentroid() const
 {
-    return transform * _centroid;
+    //return transform * _centroid;
+    return _centroid;
 }
 
 const Vector3i Mesh::getTriangleIndices(int faceIndex) const
