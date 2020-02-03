@@ -127,6 +127,7 @@ void Mesh::createMeshBVH()
         Vector3f n2 = _normals[face[1]];
         Vector3f n3 = _normals[face[2]];
         _triangles[i] = Triangle(v1, v2, v3, n1, n2, n3, i);
+        _triangles[i].setMaterial(getMaterial(i));
         (*_objects)[i] = &_triangles[i];
     }
 

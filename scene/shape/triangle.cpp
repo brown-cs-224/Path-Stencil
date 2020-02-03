@@ -52,6 +52,7 @@ bool Triangle::getIntersection(const Ray &ray, IntersectionInfo *intersection) c
     }
 }
 
+
 Vector3f Triangle::getNormal(const IntersectionInfo &I) const
 {
     //Calculate Barycentric coordinates to get interpolated normal
@@ -94,4 +95,14 @@ Vector3f Triangle::getCentroid() const
 int Triangle::getIndex() const
 {
     return m_index;
+}
+
+tinyobj::material_t Triangle::getMaterial() const
+{
+    return m_material;
+}
+
+void Triangle::setMaterial(const tinyobj::material_t &material)
+{
+    m_material = material;
 }

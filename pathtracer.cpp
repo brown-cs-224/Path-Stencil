@@ -45,9 +45,8 @@ Vector3f PathTracer::traceRay(const Ray& r, const Scene& scene)
     Ray ray(r);
     if(scene.getIntersection(ray, &i)) {
           //** Example code for accessing materials provided by a .mtl file **
-//        const Mesh * m = static_cast<const Mesh *>(i.object);//Get the mesh that was intersected
 //        const Triangle *t = static_cast<const Triangle *>(i.data);//Get the triangle in the mesh that was intersected
-//        const tinyobj::material_t& mat = m->getMaterial(t->getIndex());//Get the material of the triangle from the mesh
+//        const tinyobj::material_t& mat = t->getMaterial();//Get the material of the triangle from the mesh
 //        const tinyobj::real_t *d = mat.diffuse;//Diffuse color as array of floats
 //        const std::string diffuseTex = mat.diffuse_texname;//Diffuse texture name
         return Vector3f(1, 1, 1);

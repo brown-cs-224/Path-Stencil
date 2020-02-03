@@ -2,6 +2,7 @@
 #define TRIANGLE_H
 
 #include <BVH/Object.h>
+#include <util/tiny_obj_loader.h>
 
 class Triangle : public Object
 {
@@ -23,15 +24,21 @@ public:
 
     int getIndex() const;
 
+    tinyobj::material_t getMaterial() const;
+    void setMaterial(const tinyobj::material_t &material);
+
 private:
     Eigen::Vector3f _v1, _v2, _v3;
     Eigen::Vector3f _n1, _n2, _n3;
+
+    tinyobj::material_t m_material;
 
     int m_index;
 
     BBox _bbox;
 
     Eigen::Vector3f _centroid;
+
 };
 
 #endif // TRIANGLE_H
