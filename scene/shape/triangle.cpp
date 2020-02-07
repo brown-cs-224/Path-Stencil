@@ -79,7 +79,8 @@ Vector3f Triangle::getNormal(const Vector3f &p) const{
     Vector3f n1 = floatEpsEqual(_n1.squaredNorm(), 0) ? n : _n1;
     Vector3f n2 = floatEpsEqual(_n2.squaredNorm(), 0) ? n : _n2;
     Vector3f n3 = floatEpsEqual(_n3.squaredNorm(), 0) ? n : _n3;
-    return (u * n1 + v * n2 + w * n3);
+    Vector3f interpolated_normal = (u * n1 + v * n2 + w * n3).normalized();
+    return interpolated_normal;
 }
 
 BBox Triangle::getBBox() const
