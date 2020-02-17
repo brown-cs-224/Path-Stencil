@@ -74,3 +74,12 @@ newmtl backWall
   Kd 0.725 0.71 0.68
   Ks 0 0 0
   Ke 0 0 0
+
+newmtl light
+  Ns 10.0000
+  Ni 1.0000
+  illum 2
+  Ka 0.78 0.78 0.78 # White
+  Kd 0.78 0.78 0.78
+  Ks 0 0 0
+  Ke 17 12 4
