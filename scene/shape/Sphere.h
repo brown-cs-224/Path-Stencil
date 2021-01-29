@@ -21,7 +21,7 @@ struct Sphere : public Object {
       r2 = radius * radius;
   }
 
-  bool getIntersection(const Ray& ray, IntersectionInfo* I) const {
+  bool getIntersection(const Ray& ray, IntersectionInfo* I) const override {
     Eigen::Vector3f s = center - ray.o;
     float sd = s.dot(ray.d);
     float ss = s.dot(s);
@@ -38,17 +38,17 @@ struct Sphere : public Object {
     return true;
   }
 
-  Eigen::Vector3f getNormal(const IntersectionInfo& I) const {
+  Eigen::Vector3f getNormal(const IntersectionInfo& I) const override {
     return (I.hit - center).normalized();
   }
 
-  BBox getBBox() const {
+  BBox getBBox() const override {
       BBox box;
       box.setMinMax(center-Eigen::Vector3f(r,r,r), center+Eigen::Vector3f(r,r,r));
       return box;
   }
 
-  Eigen::Vector3f getCentroid() const {
+  Eigen::Vector3f getCentroid() const override {
     return center;
   }
 

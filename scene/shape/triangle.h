@@ -13,14 +13,14 @@ public:
              Eigen::Vector3f n1, Eigen::Vector3f n2, Eigen::Vector3f n3,
              int index);
 
-    virtual bool getIntersection(const Ray &ray, IntersectionInfo *intersection) const;
+    bool getIntersection(const Ray &ray, IntersectionInfo *intersection) const override;
 
-    virtual Eigen::Vector3f getNormal(const IntersectionInfo &I) const;
+    Eigen::Vector3f getNormal(const IntersectionInfo &I) const override;
     virtual Eigen::Vector3f getNormal(const Eigen::Vector3f &p) const;
 
-    virtual BBox getBBox() const;
+    BBox getBBox() const override;
 
-    virtual Eigen::Vector3f getCentroid() const;
+    Eigen::Vector3f getCentroid() const override;
 
     int getIndex() const;
 
