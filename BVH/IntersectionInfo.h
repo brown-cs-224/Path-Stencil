@@ -3,7 +3,7 @@
 
 #include <Eigen/Dense>
 
-class Object;
+struct Object;
 
 struct IntersectionInfo {
   float t; // Intersection distance along the ray
