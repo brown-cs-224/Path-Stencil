@@ -37,7 +37,7 @@ Your path tracer must implement at least the following features:
   
 **Milestone Deadline:** by the milestone deadline, you should have implemented diffuse reflection and indirect illumination. 
 
-Your path tracer should take a scene file as input and output an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple global operator such as Equation 3 of [this paper](https://www.cs.utah.edu/~reinhard/cdrom/tonemap.pdf) is fine **(5 points)**.
+Your path tracer should take a scene file as input and output an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple global operator such as Equation 3 of [this paper](http://www.cmap.polytechnique.fr/~peyre/cours/x2005signal/hdr_photographic.pdf) is fine **(5 points)**.
 
 **In addition to your code, you’ll also submit images showing off what your path tracer can do (5 points)**
 You must submit images depicting at least two different scenes.
