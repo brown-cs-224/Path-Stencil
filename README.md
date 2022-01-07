@@ -1,10 +1,10 @@
 # Assignment 1: Path Tracing (path)
 
-**Released:** 1/29/2021
+**Released:** 2/4/21
 
-**Milestone Due:** 2/5/2021 @ 11:59pm EST
+**Milestone Due:** 2/11/22 @ 11:59pm EST
 
-**Final Assignment Due:** 2/12/2021 @ 11:59pm EST
+**Final Assignment Due:** 2/18/21 @ 11:59pm EST
 
 In this assignment, you will implement a physically-based renderer based on the path tracing algorithm. Path tracing is a simple, elegant Monte Carlo sampling approach to solving the rendering equation. Like ray tracing, it produces images by firing rays from the eye/camera into the scene. Unlike basic ray tracing, it generates recursive bounce rays in a physically accurate manner, making it an unbiased estimator for the rendering equation. Path tracers support a wide variety of interesting visual effects (soft shadows, color bleeding, caustics, etc.), though they may take a long time to converge to a noise-free image.
 
