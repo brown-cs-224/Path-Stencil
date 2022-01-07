@@ -1,6 +1,6 @@
 # Assignment 1: Path Tracing (path)
 
-**Released:** 2/4/21
+**Released:** 2/4/22
 
 **Milestone Due:** 2/11/22 @ 11:59pm EST
 
