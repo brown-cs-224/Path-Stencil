@@ -119,6 +119,8 @@ Each of the following features that you implement will earn you extra points. Th
   * Rather than using fixed filter kernels, you can also use a neural network such as a CNN to learn kernel weights for denoising rendered images. Some example architectures are described in [this paper](https://people.engr.tamu.edu/nimak/Data/SIGGRAPH15_LBF.pdf) and [this paper](https://mint.univ-reims.fr/files/2020-1/BaVoWi_etal17.pdf).
   * You will be responsible for finding training data and training your model, so we consider this a fairly large undertaking.
   * Include at least one set of comparison images for before and after denoising, and describe your architecture and methods in your README.
+* CUDA C++ Implementation **(20 points)**
+  * Write your code in [CUDA C++](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html) so that it can take advantage of GPU parallelism
 * Something else!
   * This list is not meant to be exhaustive--if you’ve got another advanced feature in mind, go for it! (though you may want to ask a TA orr the instructor first if you’re concerned about whether the idea is feasible)
   * You might consider looking through [a recent paper](https://www.arnoldrenderer.com/research/Arnold_TOG2018.pdf) written by the authors of the Arnold renderer for some advanced feature ideas.
