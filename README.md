@@ -18,20 +18,18 @@ If you have written a ray tracer in a previous graphics course (e.g. CS 123 here
 ### Requirements
 This assignment is out of **100 points**.
 
-20% of the assignment score comes from your grade on the Radiometry in “Flatland” handout **(20 points)**
-
 Your path tracer must implement at least the following features:
 * Four basic types of BRDFs:
-  * Diffuse **(5 points)**
-  * Glossy reflections **(5 points)**
-  * Mirror reflection **(5 points)**
-  * Refraction (with Fresnel reflection) **(5 points)**
-* Soft shadows **(5 points)** 
+  * Diffuse **(7 points)**
+  * Glossy reflections **(7 points)**
+  * Mirror reflection **(7 points)**
+  * Refraction (with Fresnel reflection) **(10 points)**
+* Soft shadows **(7 points)** 
   * From sampling area light sources
-* Indirect illumination **(5 points)** 
+* Indirect illumination **(7 points)** 
   * Your path tracer must produce color bleeding and caustics
 * Russian roulette path termination **(5 points)**
-* Event splitting **(10 points)**
+* Event splitting **(15 points)**
   * At each recursive path tracing step, separately accumulate the contributions of direct lighting and indirect lighting.
   * Be careful not to double-count light sources in both contribution terms!
   
