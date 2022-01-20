@@ -49,6 +49,7 @@ Additionally, you must submit a [Markdown](https://www.markdownguide.org/basic-s
 The README file should describe how to run your path tracer (e.g. how to specify different scene file inputs).
 This file should list all the features your path tracer implements.
 It should also describe what features are demonstrated in the images you’ve submitted.
+These images should be embedded in the README file.
 
 Successfully implementing all of the requirements results in a total of **80/100 points** (a grade of B).
 To score **100/100** (or more!), you’ll need to implement some extra features (see “Extra Features” below)
