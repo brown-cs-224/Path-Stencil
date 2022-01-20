@@ -1,4 +1,4 @@
-# Assignment 1: Path Tracing (path)
+# Assignment 1: Path Tracing (Path)
 
 **Released:** 2/4/22
 
