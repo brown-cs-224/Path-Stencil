@@ -134,6 +134,8 @@ Feel free to use this stencil code to get started.
 This includes all the code needed to load scene files, set up a scene, trace rays through pixels, compute intersections of rays with the scene, and output images.
 If you already have your own ray tracer, you may still want to use (a) the scene file parser and (b) the bounding volume hierarchy (for fast ray-scene intersections) provided by this code. 
 
+**Using the CS Grid:** Rendering high quality images can take a long time. Rather than make your poor laptop sweat for hours, you may want to look into using the department's compute cluster, a.k.a. [The Grid](https://cs.brown.edu/about/system/services/hpc/). Anyone with a CS login has the ability to submit jobs to these machines. Some of them are pretty old, and none of them are terribly fast, but they are a nice resource for massively-parallel compute jobs (e.g. rendering!)
+
 ### Implementation & Debugging Tips
 * There are a lot of different probability calculations that go into computing the contribution of a ray to the final image. Make sure you really understand all of this math before you start trying to implement anything. You don’t want to get into the situation where your code is producing images that don’t quite look right, and all you can do is resort to aimlessly tweaking parts of the code (e.g. fiddling with constants, flipping minus signs) to try and make them look right.
 * Don’t try to implement all the required features at once. Implement them one by one, thoroughly debugging as you go.
@@ -146,6 +148,8 @@ If you already have your own ray tracer, you may still want to use (a) the scene
 For the milestone deadline, submit your branch of the Github classroom repository to the “Path (Milestone)” assignment.
 
 For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
+
+## About the code
 
 ### QT
 The stencil code is written in QT and will therefore require QT Creator to be installed. QT Creator 4.12.0 and 4.14.0 Community Edition have been tested.
@@ -162,7 +166,7 @@ To set these command line arguments in QT, go to the Projects tab on the left, u
 
 Additional command line arguments can be added in `main.cpp`. The stencil code uses QCommandLineParser to parse the command line arguments, so take a look at the documentation if you want to add more arguments.
 
-### About the code
+### Code structure
 The main files you should need to edit/look at are `pathtracer.cpp` and the files in the `scene/` directory. However, feel free to modify any other code you like.
 
 `pathtracer.cpp` is the class that receives a scene and an array of pixels to fill in the color for, so this is where you should start implementing the actual path tracing. However, it's a good idea to think about your design beforehand so that you don't end up putting all of your code into one file!
