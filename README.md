@@ -45,7 +45,7 @@ A Cornell Box scene can be a good test-bed for different types of rendering effe
 Submitted images should be easily viewable low dynamic range images in a format like PNG.
 You should try to produce the highest-resolution, highest-sample-count images you can by the submission deadline.
 
-Additionally, you should submit a plaintext or [Markdown](https://www.markdownguide.org/basic-syntax/) (recommended) README file **(5 points)**
+Additionally, you must submit a [Markdown](https://www.markdownguide.org/basic-syntax/) README file **(5 points)**
 The README file should describe how to run your path tracer (e.g. how to specify different scene file inputs).
 This file should list all the features your path tracer implements.
 It should also describe what features are demonstrated in the images you’ve submitted.
