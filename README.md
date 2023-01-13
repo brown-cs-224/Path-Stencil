@@ -1,10 +1,10 @@
 # Assignment 1: Path Tracing (Path)
 
-**Released:** 2/4/22
+**Released:** 2/3/23
 
-**Milestone Due:** 2/11/22 @ 11:59pm EST
+**Milestone Due:** 2/10/23 @ 11:59pm EST
 
-**Final Assignment Due:** 2/18/21 @ 11:59pm EST
+**Final Assignment Due:** 2/17/23 @ 11:59pm EST
 
 In this assignment, you will implement a physically-based renderer based on the path tracing algorithm. Path tracing is a simple, elegant Monte Carlo sampling approach to solving the rendering equation. Like ray tracing, it produces images by firing rays from the eye/camera into the scene. Unlike basic ray tracing, it generates recursive bounce rays in a physically accurate manner, making it an unbiased estimator for the rendering equation. Path tracers support a wide variety of interesting visual effects (soft shadows, color bleeding, caustics, etc.), though they may take a long time to converge to a noise-free image.
 
@@ -145,7 +145,7 @@ If you already have your own ray tracer, you may still want to use (a) the scene
 * “Does this caustic look right?” The human visual system is easy to fool, and it can be hard to tell if your pathtracers are producing correct and/or unbiased results. You can compare your renders with “ground truth” images stored in example-scenes/ground_truth as you write and debug your pathtracer. These images were either rendered with the production renderer [Mitsuba](https://www.mitsuba-renderer.org/), or found [here](https://graphics.stanford.edu/~henrik/images/cbox.html). 
 
 ### Submission Instructions
-For the milestone deadline, submit your branch of the Github classroom repository to the “Path (Milestone)” assignment.
+For the milestone deadline, submit your branch of the Github classroom repository to the “Path (Milestone)” assignment. **Your submission should include at least one image produced by your in-progress path tracer**, showing that you've implemented the required milestone features (diffuse reflection and indirect illumination).
 
 For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
 
