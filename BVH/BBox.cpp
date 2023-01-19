@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-using namespace Eigen;
+using Eigen::Vector3f;
 
 void BBox::setMinMax(const Vector3f& min, const Vector3f& max)
 {
