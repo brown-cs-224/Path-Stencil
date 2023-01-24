@@ -60,7 +60,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    eigen
+    Eigen
 )
 
 # Set this flag to silence warnings on Windows
