@@ -59,6 +59,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt::Xml
 )
 
+# This allows you to `#include <Eigen/...>`
 target_include_directories(${PROJECT_NAME} PRIVATE
     Eigen
 )
