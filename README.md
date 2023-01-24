@@ -8,19 +8,19 @@
 
 In this assignment, you will implement a physically-based renderer based on the path tracing algorithm. Path tracing is a simple, elegant Monte Carlo sampling approach to solving the rendering equation. Like ray tracing, it produces images by firing rays from the eye/camera into the scene. Unlike basic ray tracing, it generates recursive bounce rays in a physically accurate manner, making it an unbiased estimator for the rendering equation. Path tracers support a wide variety of interesting visual effects (soft shadows, color bleeding, caustics, etc.), though they may take a long time to converge to a noise-free image.
 
-If you have written a ray tracer in a previous graphics course (e.g. CS 1230 here at Brown), you are welcome to extend your ray tracing code for this assignment. If you do not already have a ray tracer, or if you do but you’d rather start from a clean slate, we provide a barebones ray tracer below (see “Resources”).
+If you have written a ray tracer in a previous graphics course (e.g. CS 1230 here at Brown), you are welcome to extend your ray tracing code for this assignment. If you do not already have a ray tracer, or if you do but you’d rather start from a clean slate, we provide a bare-bones ray tracer below (see "Resources").
 
-### Relevant Reading
+## Relevant Reading
 
 - The lecture slides!
 - [The Global Illumination Compendium](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf 'The Global Illumination Compendium')
-- [The Graphics Codex](http://graphicscodex.com/) - $10 rendering reference (by Brown alum Morgan McGuire)
+- [The Graphics Codex](http://graphicscodex.com/), a $10 rendering reference (by Brown alum Morgan McGuire)
 
-### Requirements
+## Requirements
 
 This assignment is out of **100 points**.
 
-Your path tracer must implement at least the following features:
+Your path tracer must implement the following features:
 
 - Four basic types of BRDFs:
   - Diffuse **(7 points)**
@@ -35,8 +35,13 @@ Your path tracer must implement at least the following features:
 - Event splitting **(15 points)**
   - At each recursive path tracing step, separately accumulate the contributions of direct lighting and indirect lighting.
   - Be careful not to double-count light sources in both contribution terms!
+- Readme **(5 points)**
 
-**Milestone Deadline:** by the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
+This sums to **70 points**. Your milestone will be worth another **10 points**, and an extra feature of your choice will make up the remaining **20 points**.
+
+## Milestone
+
+By the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
 
 Your path tracer should take a scene file as input and output an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple global operator such as Equation 3 of [this paper](https://www.cs.utah.edu/docs/techreports/2002/pdf/UUCS-02-001.pdf) is fine **(5 points)**.
 
@@ -54,10 +59,9 @@ This file should list all the features your path tracer implements.
 It should also describe what features are demonstrated in the images you’ve submitted.
 These images should be embedded in the README file.
 
-Successfully implementing all of the requirements results in a total of **80/100 points** (a grade of B).
-To score **100/100** (or more!), you’ll need to implement some extra features (see “Extra Features” below)
+Successfully implementing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
 
-### Material Specifications
+## Material Specifications
 
 **Required Materials:**
 Your path tracer must support these 4 types of materials:
@@ -87,7 +91,7 @@ The assignment spec states that you need to demonstrate your path tracer on at l
 
 The assignment spec states that you need to support area light sources resulting in soft shadows. The recommended way to do this is to treat objects with emissive materials as area light sources. The best place in the code to look through the scene objects for emissive ones is probably in `Scene::parseTree`, which constructs a vector of scene objects before building a BVH acceleration structure out of them. You’ll also need to implement a method for sampling a point on an area light source (i.e. sampling a point on the surface of an emissive triangle mesh).
 
-### Extra Features
+## Extra Features
 
 Each of the following features that you implement will earn you extra points. The features are ordered roughly by difficulty of implementation.
 
@@ -132,54 +136,58 @@ Each of the following features that you implement will earn you extra points. Th
 
 Any extra features you implement must be described in your README. **To get extra credit, you must also submit comparison images for each feature that you implement.**
 
-You can also get extra credit for sharing a scene you’ve created with the class **(2 points)**. Post the scene file(s) and a rendering of the scene to Slack. If your path tracer is built on top of your own ray tracer and uses a different scene file format than the one used by the barebones ray tracer we provide, or if you’ve modified our scene file format in any way, you should also post instructions for how to read your scene file format.
+You can also get extra credit for sharing a scene you’ve created with the class **(2 points)**. Post the scene file(s) and a rendering of the scene to Slack. If your path tracer is built on top of your own ray tracer and uses a different scene file format than the one used by the bare-bones ray tracer we provide, or if you’ve modified our scene file format in any way, you should also post instructions for how to read your scene file format.
 
-### Resources
+## Resources
 
 Feel free to use this stencil code to get started.
 
-This includes all the code needed to load scene files, set up a scene, trace rays through pixels, compute intersections of rays with the scene, and output images.
-If you already have your own ray tracer, you may still want to use (a) the scene file parser and (b) the bounding volume hierarchy (for fast ray-scene intersections) provided by this code.
+This includes all the code needed to load scene files, set up a scene, trace rays through pixels, compute intersections of rays with the scene, and output images. If you already have your own ray tracer, you may still want to use (a) the scene file parser and (b) the bounding volume hierarchy (for fast ray-scene intersections) provided by this code.
 
-**Using the CS Grid:** Rendering high quality images can take a long time. Rather than make your poor laptop sweat for hours, you may want to look into using the department's compute cluster, a.k.a. [The Grid](https://cs.brown.edu/about/system/services/hpc/). Anyone with a CS login has the ability to submit jobs to these machines. Some of them are pretty old, and none of them are terribly fast, but they are a nice resource for massively-parallel compute jobs (e.g. rendering!)
+<details>
+  <summary>Using the CS Grid for rendering (optional)</summary>
 
-### Implementation & Debugging Tips
+Rendering high quality images can take a long time. Rather than make your poor laptop sweat for hours, you may want to look into using the department's compute cluster, a.k.a. [The Grid](https://cs.brown.edu/about/system/services/hpc/). Anyone with a CS login has the ability to submit jobs to these machines. Some of them are pretty old, and none of them are terribly fast, but they are a nice resource for massively-parallel compute jobs (e.g. rendering!)
 
+For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
+</details>
+
+## Submission Instructions
+
+For the milestone deadline, submit your GitHub repository to the "Path (Milestone)" assignment. **Your submission should include at least one image produced by your in-progress path tracer**, showing that you've implemented the required milestone features (diffuse reflection and indirect illumination).
+
+For the final deadline, submit your GitHub repository to the "Path (Final)" assignment.
+
+## Implementation & Debugging Tips
+
+To set these command line arguments in QT, go to the Projects tab on the left, under build and run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
 - There are a lot of different probability calculations that go into computing the contribution of a ray to the final image. Make sure you really understand all of this math before you start trying to implement anything. You don’t want to get into the situation where your code is producing images that don’t quite look right, and all you can do is resort to aimlessly tweaking parts of the code (e.g. fiddling with constants, flipping minus signs) to try and make them look right.
 - Don’t try to implement all the required features at once. Implement them one by one, thoroughly debugging as you go.
 - It's useful to be able to look at your rendered output images _before_ you've implemented a tone mapping function. To do this, you can write your pathtracer's raw per-pixel radiance values to a high-dynamic range image format. The simplest such format is [PFM (short for Portable Float Map)](https://www.pauldebevec.com/Research/HDR/PFM/). You can also try using a library such as [tinyexr](https://github.com/syoyo/tinyexr) to read/write the industry-standard OpenEXR file format. Many different image viewing/editing apps support these formats.
-- Path tracers can take a long time to produce an image. The first thing you should do is **make sure to compile your code in “Release” mode** (or with all compiler optimizations enabled, if you’re not using Qt Creator). To speed up your code-test-iterate cycle, you’ll want to render low-resolution images (or, small windows cut out of a larger image that focus on some region of interest). In addition, you can also parallelize your code. Using [OpenMP’s parallel for loop](http://supercomputingblog.com/openmp/tutorial-parallel-for-loops-with-openmp/) is a good option, and there is a commented out line in the starter code (pathtracer.cpp, line 21) that illustrates how to do so. **Strongly recommended!**
+- Path tracers can take a long time to produce an image. The first thing you should do is **make sure to compile your code in "Release" mode** (or with all compiler optimizations enabled, if you’re not using Qt Creator). To speed up your code-test-iterate cycle, you’ll want to render low-resolution images (or, small windows cut out of a larger image that focus on some region of interest). In addition, you can also parallelize your code. Using [OpenMP’s parallel for loop](http://supercomputingblog.com/openmp/tutorial-parallel-for-loops-with-openmp/) is a good option, and there is a commented out line in the starter code (pathtracer.cpp, line 21) that illustrates how to do so. **Strongly recommended!**
 - When you allocate memory, make sure to zero it out. Bugs can creep into your code from uninitialized values.
 - If you’re noticing ‘speckling’ artifacts, i.e. individual isolated pixels that look incorrect: try using an image editor to identify the coordinates of a problematic pixel (many image editors will display this information somewhere as you mouse over the image). Then, set a breakpoint in your code that only fires on that pixel, and use a debugger to step through and see what is going wrong.
-- “Does this caustic look right?” The human visual system is easy to fool, and it can be hard to tell if your pathtracers are producing correct and/or unbiased results. You can compare your renders with “ground truth” images stored in example-scenes/ground_truth as you write and debug your pathtracer. These images were either rendered with the production renderer [Mitsuba](https://www.mitsuba-renderer.org/), or found [here](https://graphics.stanford.edu/~henrik/images/cbox.html).
+- "Does this caustic look right?" The human visual system is easy to fool, and it can be hard to tell if your pathtracers are producing correct and/or unbiased results. You can compare your renders with "ground truth" images stored in example-scenes/ground_truth as you write and debug your pathtracer. These images were either rendered with the production renderer [Mitsuba](https://www.mitsuba-renderer.org/), or found [here](https://graphics.stanford.edu/~henrik/images/cbox.html).
 
-### Submission Instructions
+## About the Code
 
-For the milestone deadline, submit your branch of the Github classroom repository to the “Path (Milestone)” assignment. **Your submission should include at least one image produced by your in-progress path tracer**, showing that you've implemented the required milestone features (diffuse reflection and indirect illumination).
+### Qt
 
-For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
+The stencil code is written in Qt and will therefore require Qt Creator to be installed. Qt Creator 4.12.0 (TODO) and 4.14.0 Community Edition have been tested.
 
-## About the code
+### How to Build
 
-### QT
+The included project files should be all you need to build, so just open the project in Qt Creator and build the project.
 
-The stencil code is written in QT and will therefore require QT Creator to be installed. QT Creator 4.12.0 and 4.14.0 Community Edition have been tested.
+### How to Run
 
-### How to build
+The compiled application takes two command line arguments. The first argument is the path to the scene file that is being loaded to be rendered. The second argument is the path of the file that the rendered image will be written out to.
 
-The included project files should be all you need to build, so just open the project in QT Creator and build the project.
+To set these command line arguments in Qt, go to the Projects tab on the left, under Run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
 
-### How to run
+Additional command line arguments can be added in `main.cpp`. The stencil code uses `QCommandLineParser` to parse the command line arguments, so take a look at the documentation if you want to add more arguments.
 
-The compiled application takes two command line arguments.
-The first argument is the path to the scene file that is being loaded to be rendered.
-The second argument is the path of the file that the rendered image will be written out to.
-
-To set these command line arguments in QT, go to the Projects tab on the left, under build and run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
-
-Additional command line arguments can be added in `main.cpp`. The stencil code uses QCommandLineParser to parse the command line arguments, so take a look at the documentation if you want to add more arguments.
-
-### Code structure
+### Code Structure
 
 The main files you should need to edit/look at are `pathtracer.cpp` and the files in the `scene/` directory. However, feel free to modify any other code you like.
 
@@ -187,7 +195,8 @@ The main files you should need to edit/look at are `pathtracer.cpp` and the file
 
 In the scene directory, there is the mesh class, which represents the objects that you are casting rays to collide with. Each mesh has a list of vertices, normals, colors and UVs, all of which are the same length, one for each vertex. They also contain a list of `Vector3i`s which correspond to the faces of the mesh. Each `Vector3i` describes a triangle in the mesh and contains 3 indices into the vertex, normal, etc arrays. There is also a list of integers, one for each face, that contains the indices of the material for that face. These indices index into the final array, the material array. This array is loaded from the .mat file that likely comes with the .obj file that you are loading, and will contain whatever material properties were specified for the mesh.
 
-### Scene files
+### Example Scene Files
 
 The stencil code uses a modified version of the CS123 scene files, which are xml files. The full spec for the scene files can be found in `scenefile.pdf`. Note that the stencil code only supports mesh primitives and not cubes, cylinders, etc. However, meshes can be used to represent any of these shapes, and if you want, you can add support for primitives.
+
 Some example scenes can be found in the `example-scenes` directory.
