@@ -171,13 +171,21 @@ To set these command line arguments in QT, go to the Projects tab on the left, u
 
 ## About the Code
 
+### Eigen
+
+After cloning the repository, run
+```
+git submodule update --init
+```
+to pull in the Eigen dependency
+
 ### Qt
 
-The stencil code is written in Qt and will therefore require Qt Creator to be installed. Qt Creator 4.12.0 (TODO) and 4.14.0 Community Edition have been tested.
+The stencil code is written in Qt and will therefore require Qt Creator to be installed. Qt Creator 9 and 6.2 Community Edition have been tested. If you do not have QT setup, follow section 3 of [this guide from cs1230](https://cs1230.graphics/labs/lab1#qt-and-qt-creator).
 
 ### How to Build
 
-The included project files should be all you need to build, so just open the project in Qt Creator and build the project.
+The included project files should be all you need to build, so just open the project in Qt Creator ("Open Project" > select `CMakeLists.txt`) and build the project.
 
 ### How to Run
 
