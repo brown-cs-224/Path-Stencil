@@ -59,6 +59,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt::Xml
 )
 
+file(GLOB EIGEN_DIR_CONTENTS ${CMAKE_CURRENT_LIST_DIR}/Eigen/*)
+list(LENGTH EIGEN_DIR_CONTENTS EIGEN_DIR_SIZE)
+if(EIGEN_DIR_SIZE EQUAL 0)
+    message(FATAL_ERROR "Eigen dependency not pulled, please run `git submodule update --init --recursive`")
+endif()
+
 # This allows you to `#include <Eigen/...>`
 target_include_directories(${PROJECT_NAME} PRIVATE
     Eigen
