@@ -1,2 +1,0 @@
-"Medieval Boat.png" is rendered at 1000spp with importance sampling
-Background color: 0.4, 0.56, 0.56

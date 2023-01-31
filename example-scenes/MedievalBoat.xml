@@ -6,16 +6,6 @@
 		<heightangle v="80"/>
 	</cameradata>
 
-	<lightdata>
-		<id v="0"/>
-		<color r="0" g="0.5" b="0.5"/>
-		<position x="10" y="10" z="10"/>
-		<type v="area" />
-		<direction x="-1" y="-1" z="-1" />
-		<width v="2" />
-		<height v="2" />
-	</lightdata>
-
 	<object type="tree" name="root">
 		<transblock>
 			<rotate x="0" y="0" z="1" angle="0"/>
