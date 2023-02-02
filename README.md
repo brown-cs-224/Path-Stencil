@@ -23,13 +23,13 @@ This assignment is out of **100 points**.
 Your path tracer must implement the following features:
 
 - Four basic types of BRDFs:
-  - Diffuse **(7 points)**
+  - Diffuse **(7 points - milestone deadline)**
   - Glossy reflections **(7 points)**
   - Mirror reflection **(7 points)**
   - Refraction (with Fresnel reflection) **(10 points)**
 - Soft shadows **(7 points)**
   - From sampling area light sources
-- Indirect illumination **(7 points)**
+- Indirect illumination **(7 points - milestone deadline)**
   - Your path tracer must produce color bleeding and caustics
 - Russian roulette path termination **(5 points)**
 - Event splitting **(15 points)**
@@ -37,11 +37,9 @@ Your path tracer must implement the following features:
   - Be careful not to double-count light sources in both contribution terms!
 - Readme **(5 points)**
 
-This sums to **70 points**. Your milestone will be worth another **10 points**, and an extra feature of your choice will make up the remaining **20 points**.
+This sums to **80 points**. Extra feature(s) of your choice will make up the remaining **20 points**.
 
-## Milestone
-
-By the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
+**Milestone**: By the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
 
 Your path tracer should take a scene file as input and output an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple global operator such as Equation 3 of [this paper](https://www.cs.utah.edu/docs/techreports/2002/pdf/UUCS-02-001.pdf) is fine **(5 points)**.
 
