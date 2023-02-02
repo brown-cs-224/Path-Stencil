@@ -34,6 +34,8 @@ public:
 
     bool getIntersection(const Ray& ray, IntersectionInfo* I) const;
 
+    const std::vector<Triangle*>& getEmissives() const { return m_emissives; };
+
 private:
 
     BVH *m_bvh;
@@ -42,6 +44,7 @@ private:
     BasicCamera m_camera;
 
     CS123SceneGlobalData m_globalData;
+    std::vector<Triangle*> m_emissives;
 
     std::vector<CS123SceneLightData> m_lights;
 

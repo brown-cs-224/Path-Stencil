@@ -80,6 +80,20 @@ bool Scene::parseTree(CS123SceneNode *root, Scene *scene, const std::string &bas
     if(objects->size() == 0) {
         return false;
     }
+
+    // gather all emissive triangles
+    for (Object *object : *objects) {
+        Mesh *mesh = static_cast<Mesh*>(object);
+        int tri_count = mesh->getTriangleCount();
+        Triangle *triangles = mesh->getTriangles();
+        for (int i = 0; i < tri_count; i++) {
+            const tinyobj::material_t &mat = triangles[i].getMaterial();
+            if (mat.emission[0] > 0. || mat.emission[1] > 0. || mat.emission[2] > 0.) {
+                scene->m_emissives.push_back(triangles + i);
+            }
+        }
+    }
+
     std::cout << "Parsed tree, creating BVH" << std::endl;
     BVH *bvh = new BVH(objects);
 
