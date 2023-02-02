@@ -35,27 +35,15 @@ Your path tracer must implement the following features:
 - Event splitting **(15 points)**
   - At each recursive path tracing step, separately accumulate the contributions of direct lighting and indirect lighting.
   - Be careful not to double-count light sources in both contribution terms!
+- Tone mapping **(5 points)**
+  - Your path tracer should take a scene file as input and output an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple global operator such as Equation 3 of [this paper](https://www.cs.utah.edu/docs/techreports/2002/pdf/UUCS-02-001.pdf) is fine.
+- Example images **(5 points)**
+  - You must submit images depicting at least two different scenes. These images should demonstrate every feature that your path tracer implements. You must also provide comparison images of a scene with and without direct lighting. A Cornell Box scene can be a good test-bed for different types of rendering effects; the starter code repository contains such an example scene.
+  - Submitted images should be easily viewable low dynamic range images in a format like PNG. You should try to produce the highest-resolution, highest-sample-count images you can by the submission deadline.
 - Readme **(5 points)**
-
-This sums to **80 points**. Extra feature(s) of your choice will make up the remaining **20 points**.
+  - Additionally, you must submit a [Markdown](https://www.markdownguide.org/basic-syntax/) README file. The README file should describe how to run your path tracer (e.g. how to specify different scene file inputs). This file should list all the features your path tracer implements. It should also describe what features are demonstrated in the images you’ve submitted. These images should be embedded in the README file.
 
 **Milestone**: By the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
-
-Your path tracer should take a scene file as input and output an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple global operator such as Equation 3 of [this paper](https://www.cs.utah.edu/docs/techreports/2002/pdf/UUCS-02-001.pdf) is fine **(5 points)**.
-
-**In addition to your code, you’ll also submit images showing off what your path tracer can do (5 points)**
-You must submit images depicting at least two different scenes.
-These images should demonstrate every feature that your path tracer implements.
-You must also provide comparison images of a scene with and without direct lighting.
-A Cornell Box scene can be a good test-bed for different types of rendering effects; the starter code repository contains such an example scene.
-Submitted images should be easily viewable low dynamic range images in a format like PNG.
-You should try to produce the highest-resolution, highest-sample-count images you can by the submission deadline.
-
-Additionally, you must submit a [Markdown](https://www.markdownguide.org/basic-syntax/) README file **(5 points)**
-The README file should describe how to run your path tracer (e.g. how to specify different scene file inputs).
-This file should list all the features your path tracer implements.
-It should also describe what features are demonstrated in the images you’ve submitted.
-These images should be embedded in the README file.
 
 Successfully implementing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
 
