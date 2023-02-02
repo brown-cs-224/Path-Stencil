@@ -34,6 +34,7 @@ public:
 
     bool getIntersection(const Ray& ray, IntersectionInfo* I) const;
 
+    // returns all triangles in the scene whose material has non-zero emission
     const std::vector<Triangle*>& getEmissives() const { return m_emissives; };
 
 private:
