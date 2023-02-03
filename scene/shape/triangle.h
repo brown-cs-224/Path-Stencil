@@ -27,6 +27,9 @@ public:
     tinyobj::material_t getMaterial() const;
     void setMaterial(const tinyobj::material_t &material);
 
+    Eigen::Vector3<Eigen::Vector3f> getVertices() { return Eigen::Vector3<Eigen::Vector3f>(_v1, _v2, _v3); }
+    Eigen::Vector3<Eigen::Vector3f> getNormals()  { return Eigen::Vector3<Eigen::Vector3f>(_n1, _n2, _n3); }
+
 private:
     Eigen::Vector3f _v1, _v2, _v3;
     Eigen::Vector3f _n1, _n2, _n3;

@@ -49,6 +49,9 @@ public:
 
     virtual void setTransform(Eigen::Affine3f transform) override;
 
+    int getTriangleCount() { return _faces.size(); }
+    Triangle* getTriangles() { return _triangles; }
+
 private:
     // Properties fromt the scene file
     //CS123SceneMaterial _wholeObjectMaterial;
