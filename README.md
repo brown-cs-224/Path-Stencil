@@ -43,9 +43,16 @@ Your path tracer must implement the following features:
 - Readme **(5 points)**
   - Additionally, you must submit a [Markdown](https://www.markdownguide.org/basic-syntax/) README file. The README file should describe how to run your path tracer (e.g. how to specify different scene file inputs). This file should list all the features your path tracer implements. It should also describe what features are demonstrated in the images you’ve submitted. These images should be embedded in the README file.
 
-**Milestone**: By the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
-
 Successfully implementing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
+
+## Milestone:
+
+By the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
+Having these features implemented by the milestone deadline is worth **5 points**. That is to say: if you implement them correctly by the final submission deadline, but not by the milestone deadline, you'll incur a -5 point penalty to your project grade.
+Why do we do this? We want to encourage you to start early and develop good habits that will carry over to the rest of the assignments in the course (the latter of which do not have formal milestones).
+
+Please note that we will not have your milestone submissions graded before the final submission deadline--that's only a week's time, and we're only human.
+If you want feedback on how well your code is working as of the milestone deadline, we expect you to take initiative and come talk to us at hours.
 
 ## Material Specifications
 
@@ -133,7 +140,7 @@ This includes all the code needed to load scene files, set up a scene, trace ray
 <details>
   <summary>Using the CS Grid for rendering (optional)</summary>
 
-Rendering high quality images can take a long time. Rather than make your poor laptop sweat for hours, you may want to look into using the department's compute cluster, a.k.a. [The Grid](https://cs.brown.edu/about/system/services/hpc/). Anyone with a CS login has the ability to submit jobs to these machines. Some of them are pretty old, and none of them are terribly fast, but they are a nice resource for massively-parallel compute jobs (e.g. rendering!)
+Rendering high quality images can take a long time. Rather than make your poor laptop sweat for hours, you may want to look into using the department's compute cluster, a.k.a. [The Grid](https://cs.brown.edu/about/system/services/hpc/). Anyone with a CS login has the ability to submit jobs to these machines. Some of them are pretty old, and none of them are terribly fast, but they are a nice resource for massively-parallel compute jobs (e.g. rendering!) Remember that because your path tracer is unbiased (or at least, it should be!), you can render the same scene multiple times on different Grid nodes and then average the resulting images together to get a lower-variance final image.
 
 For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
 </details>
