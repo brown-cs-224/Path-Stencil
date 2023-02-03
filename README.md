@@ -124,7 +124,7 @@ Each of the following features that you implement will earn you extra points. Th
 - CUDA C++ Implementation **(20 points)**
   - Write your code in [CUDA C++](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html) so that it can take advantage of GPU parallelism
 - Something else!
-  - This list is not meant to be exhaustive--if you’ve got another advanced feature in mind, go for it! (though you may want to ask a TA orr the instructor first if you’re concerned about whether the idea is feasible)
+  - This list is not meant to be exhaustive--if you’ve got another advanced feature in mind, go for it! (though you may want to ask a TA or the instructor first if you’re concerned about whether the idea is feasible)
   - You might consider looking through [a recent paper](https://www.arnoldrenderer.com/research/Arnold_TOG2018.pdf) written by the authors of the Arnold renderer for some advanced feature ideas.
 
 Any extra features you implement must be described in your README. **To get extra credit, you must also submit comparison images for each feature that you implement.**
@@ -142,14 +142,13 @@ This includes all the code needed to load scene files, set up a scene, trace ray
 
 Rendering high quality images can take a long time. Rather than make your poor laptop sweat for hours, you may want to look into using the department's compute cluster, a.k.a. [The Grid](https://cs.brown.edu/about/system/services/hpc/). Anyone with a CS login has the ability to submit jobs to these machines. Some of them are pretty old, and none of them are terribly fast, but they are a nice resource for massively-parallel compute jobs (e.g. rendering!) Remember that because your path tracer is unbiased (or at least, it should be!), you can render the same scene multiple times on different Grid nodes and then average the resulting images together to get a lower-variance final image.
 
-For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
 </details>
 
 ## Submission Instructions
 
 For the milestone deadline, submit your GitHub repository to the "Path (Milestone)" assignment. **Your submission should include at least one image produced by your in-progress path tracer**, showing that you've implemented the required milestone features (diffuse reflection and indirect illumination).
 
-For the final deadline, submit your GitHub repository to the "Path (Final)" assignment.
+For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
 
 ## Implementation & Debugging Tips
 
