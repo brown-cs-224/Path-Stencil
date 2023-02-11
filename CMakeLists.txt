@@ -59,6 +59,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt::Xml
 )
 
+#include openmp
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(${PROJECT_NAME} PUBLIC OpenMP::OpenMP_CXX)
+endif()
+
 file(GLOB EIGEN_DIR_CONTENTS ${CMAKE_CURRENT_LIST_DIR}/Eigen/*)
 list(LENGTH EIGEN_DIR_CONTENTS EIGEN_DIR_SIZE)
 if(EIGEN_DIR_SIZE EQUAL 0)
