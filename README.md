@@ -98,10 +98,10 @@ Each of the following features that you implement will earn you extra points. Th
   - The rendering problem that a path tracer tries to solve is an integration problem, and there’s nothing that says we have use random samples to estimate integrals. Rather, any set of samples that are ‘well-spaced out’ but not perfectly uniform (to avoid aliasing) ought to work. This is the idea behind low-discrepancy sampling (also known as Quasi-Monte Carlo): use an algorithm that deterministically generates random sample points that have the right properties.
   - You can find a more detailed introduction to this concept [here](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/introduction-quasi-monte-carlo).
   - Include at least one image comparing this approach to uniform random ray sampling (or stratified sampling), and describe this comparison in your README.
-- BRDF importance sampling **(10 points)**
+- BRDF importance sampling **(5 points per BRDF)**
   - When tracing a recursive ray from a surface intersection, you can choose it randomly from the hemisphere; alternatively, you can choose it in a way that's approximately proportional to the BRDF, and use importance sampling.
   - Include at least one image comparing this approach to uniform hemisphere sampling, and describe this comparison in your README.
-- Multiple importance sampling **(10 points)**
+- Multiple importance sampling **(5 points)**
   - Next event estimation separates the contributions of direct vs. indirect illumination. Instead, you can use multiple importance sampling (MIS), which provides a general procedure for combining samples drawn using different sampling strategies.
   - Check out [the chapter on MIS from Erich Veach’s thesis](https://graphics.stanford.edu/courses/cs348b-03/papers/veach-chapter9.pdf) to learn more about how it works.
   - Include at least one image comparing MIS to next event estimation, and describe this comparison in your README.
