@@ -1,6 +1,6 @@
-## Path (final)
+## Path (milestone)
 
-Please fill this out and submit your work to Gradescope by the deadline.
+Please fill this out and submit your work to Gradescope by the milestone deadline.
 
 ### Output Comparison
 Run the program with the specified `.ini` config file to compare your output against the reference images. The program should automatically save to the correct path for the images to appear in the table below.
