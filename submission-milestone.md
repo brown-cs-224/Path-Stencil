@@ -19,10 +19,10 @@ Please do not attempt to duplicate the given reference images; we have tools to 
 
 | `.ini` File To Produce Output | Expected Output | Your Output |
 | :---------------------------------------: | :--------------------------------------------------: | :-------------------------------------------------: |
-| cornell_box_milestone.ini |  ![](example-scenes/ground_truth/milestone/cornell_box_milestone.png) | ![Place cornell_box_milestone.png in student_outputs/required folder](student_outputs/milestone/cornell_box_milestone.png) |
-| sphere_milestone.ini | ![](example-scenes/ground_truth/milestone/sphere_milestone.png) | ![Place sphere_milestone.png in student_outputs/intersect/required folder](student_outputs/milestone/sphere_milestone.png) |
+| cornell_box_milestone.ini |  ![](example-scenes/ground_truth/milestone/cornell_box_milestone.png) | ![Place cornell_box_milestone.png in student_outputs/milestone folder](student_outputs/milestone/cornell_box_milestone.png) |
+| sphere_milestone.ini | ![](example-scenes/ground_truth/milestone/sphere_milestone.png) | ![Place sphere_milestone.png in student_outputs/milestone folder](student_outputs/milestone/sphere_milestone.png) |
 
-
+> Note: The reference images above were produced using the [Extended Reinhard](https://64.github.io/tonemapping/#extended-reinhard) tone mapping function with minor gamma correction. You may choose to use another mapping function or omit gamma correction.
 
 <!-- ### Design Choices
 
