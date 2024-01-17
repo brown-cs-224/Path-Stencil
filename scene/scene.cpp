@@ -31,7 +31,7 @@ Scene::~Scene()
     delete m_bvh;
 }
 
-bool Scene::load(QString filename, Scene **scenePointer)
+bool Scene::load(QString filename, Scene **scenePointer, float imageWidth, float imageHeight)
 {
     CS123XmlSceneParser parser(filename.toStdString());
     if(!parser.parse()) {
@@ -43,7 +43,7 @@ bool Scene::load(QString filename, Scene **scenePointer)
                        cameraData.look.head<3>(),
                        cameraData.up.head<3>(),
                        cameraData.heightAngle,
-                       (float)IMAGE_WIDTH / (float)IMAGE_HEIGHT);
+                       imageWidth / imageHeight);
     Scene *scene = new Scene;
     scene->setCamera(camera);
 
