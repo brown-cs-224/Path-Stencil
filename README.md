@@ -37,8 +37,9 @@ Your path tracer must implement the following features:
   - Be careful not to double-count light sources in both contribution terms!
 - Tone mapping **(5 points - milestone deadline)**
   - Your path tracer takes a scene file as input and outputs an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple one such as the (extended) [Reinhard operator](https://64.github.io/tonemapping/#reinhard) is fine.
-- Output images & implementation details **(10 points)**
+- Submission: Output images **(6 points)**
   - You must submit images demonstrating the functionality of your path tracer in the provided submission templates (**[submission-milestone.md](submission-milestone.md)** and **[submission-final.md](submission-final.md)**). Instructions can be found there. These must be completed by the milestone and final deadlines, respectively.
+- Submission: Implementation details **(4 points)**
   - In addition, please complete the *Design Choices*, *Extra Features*, *Collaboration*, and *Known Bugs* sections at the bottom of [submission-final.md](submission-final.md))
 
 Successfully completing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
