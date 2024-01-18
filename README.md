@@ -40,13 +40,14 @@ Your path tracer must implement the following features:
 - Submission: Output images **(6 points)**
   - You must submit images demonstrating the functionality of your path tracer in the provided submission templates (**[submission-milestone.md](submission-milestone.md)** and **[submission-final.md](submission-final.md)**). Instructions can be found there. These must be completed by the milestone and final deadlines, respectively.
 - Submission: Implementation details **(4 points)**
-  - In addition, please complete the *Design Choices*, *Extra Features*, *Collaboration*, and *Known Bugs* sections at the bottom of [submission-final.md](submission-final.md))
+  - Complete the *Design Choices*, *Extra Features*, *Collaboration*, and *Known Bugs* sections at the bottom of [submission-final.md](submission-final.md))
 
 Successfully completing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
 
 ## Milestone:
 
-By the milestone deadline, you should have implemented (1) diffuse reflection, (2) indirect illumination, and (3) tone mapping.
+By the milestone deadline, you should have implemented (1) diffuse reflection, (2) indirect illumination, and (3) tone mapping, as well as filled out [submission-milestone.md](submission-milestone.md). Make sure to push your changes and submit your Github repo to Gradescope.
+
 Having these features implemented by the milestone deadline is worth **5 points**. That is to say: if you implement them correctly by the final submission deadline, but not by the milestone deadline, you'll incur a -5 point penalty to your project grade.
 Why do we do this? We want to encourage you to start early and develop good habits that will carry over to the rest of the assignments in the course (the latter of which do not have formal milestones).
 
