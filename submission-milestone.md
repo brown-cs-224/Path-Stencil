@@ -5,9 +5,11 @@ Please fill this out and submit your work to Gradescope by the milestone deadlin
 ### Output Comparison
 Run the program with the specified `.ini` config file to compare your output against the reference images. The program should automatically save to the correct path for the images to appear in the table below.
 
-If you aren't using the Qt framework, you may also produce your outputs otherwise so long as you place them in the correct directories as specified in the table.
+Please take a look at the program parameters contained in the `.ini` files: **your program must respond to changes to these parameters**. If you are using the Qt stencil code, these parameters can be accessed via the `settings` member variable of the `PathTracer` class. 
 
-> Qt Creator users: If your program can't find certain files or you aren't seeing your output images appear, make sure to:<br/>
+If you aren't using the Qt framework, you may also produce your outputs otherwise so long as you place them in the correct directories as specified in the table. In this case, also describe how your code can be run to reproduce your outputs.
+
+> Qt Creator users: If your program can't find certain files or you aren't seeing your output images, make sure to:<br/>
 > 1. Set your working directory to the project directory
 > 2. Set the command-line argument in Qt Creator to `template_inis/milestone/<ini_file_name>.ini`
 
