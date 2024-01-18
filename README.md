@@ -38,7 +38,7 @@ Your path tracer must implement the following features:
 - Tone mapping **(5 points - milestone deadline)**
   - Your path tracer takes a scene file as input and outputs an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple one such as the (extended) [Reinhard operator](https://64.github.io/tonemapping/#reinhard) is fine.
 - Output images & implementation details **(10 points)**
-  - You must submit images demonstrating the functionality of your path tracer in the provided submission templates ([submission-milestone.md](submission-milestone.md) and [submission-final.md](submission-final.md)). Instructions can be found there. These must be completed by the milestone and final deadlines, respectively.
+  - You must submit images demonstrating the functionality of your path tracer in the provided submission templates (**[submission-milestone.md](submission-milestone.md)** and **[submission-final.md](submission-final.md)**). Instructions can be found there. These must be completed by the milestone and final deadlines, respectively.
   - In addition, please complete the *Design Choices*, *Extra Features*, *Collaboration*, and *Known Bugs* sections at the bottom of [submission-final.md](submission-final.md))
 
 Successfully completing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
@@ -175,7 +175,7 @@ The included project files should be all you need to build, so just open the pro
 
 ### How to Run
 
-The compiled application takes one command line argument to the relative path to the `.ini` config file. Each config file specifies the input/output paths and feature settings for the path tracer (e.g. sample count). See [submission-milestone.md](submission-milestone.md) for guidance. Feel free to create your own `.ini` files with additional parameters as necessary, but **do not modify the provided `.ini` files**! 
+The compiled application takes one command line argument to the relative path to the `.ini` config file. Each config file specifies the input/output paths and feature settings for the path tracer (e.g. sample count). Your program is required to respond to changes to these parameters. See [submission-milestone.md](submission-milestone.md) for guidance. Feel free to create your own `.ini` files with additional parameters as necessary, but **do not modify the provided `.ini` files**! 
 
 To set this command line argument in Qt, go to the Projects tab on the left, under Run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
 
