@@ -93,7 +93,7 @@ Each of the following features that you implement will earn you extra points. Th
   - Instead of generating rays from a single eye location, scatter the starting location over a lens (e.g. a disk). This produces an effect that mimics camera defocus blur.
   - The scene will be in focus only at the same depth away from the eye/lens as the virtual film plane--rays diverge as they move away from this plane, leading to defocus blur. You can control the location of the focus plane by changing the location of the virtual film plane.
   - Obviously, this is an approximation, and not a physically-based model of how cameras work. If you’re interested in how you might do that, check out [this paper](https://graphics.stanford.edu/papers/camera/) on putting a simulated camera lens system into your path tracer.
-- More advanced BRDFs **(5-10 points each)**
+- More advanced BRDFs **(5 points each, up to 4 BRDFs)**
   - There are many other types of BRDFs you could implement to get more interesting material appearance.
   - The [Ward anisotropic BRDF](https://en.wikipedia.org/wiki/Specular_highlight#Ward_anisotropic_distribution) and the [Cook-Torrance microfacet model](https://en.wikipedia.org/wiki/Specular_highlight#Cook.E2.80.93Torrance_model) are just two possibilities.
 - Low discrepancy sampling **(10 points)**
