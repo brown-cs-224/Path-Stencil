@@ -183,6 +183,8 @@ To set this command line argument in Qt, go to the Projects tab on the left, und
 
 The program will save a `.png` image to disk at the path specified in the config file. 
 
+For students using Apple chip (M1/M2), please find file /BVH/BBox_appleChip.cpp and copy it to overwrite /BVH/BBox.cpp. While is will slow down your code a bit, you can still produce results within reasonable time. 
+
 ### Code Structure
 
 The main files you should need to edit/look at are `pathtracer.cpp` and the files in the `scene/` directory. However, feel free to modify any other code you like.
