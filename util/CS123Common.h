@@ -83,10 +83,10 @@ inline static void outputPFM(const std::string& path, int width, int height, std
             file << scalef << "\n";
 
             if (bands == "PF") { // handles 3-band image
-                for (int i = 0; i < height; i++) {
+                for (int i = 0; i < height; ++i) {
                     for (int j = 0; j < width; ++j) {
                         for (int p = 0; p < 3; ++p) {
-                            fvalue = intensityValues[i * width + j](p);
+                            fvalue = intensityValues[(height-1-i) * width + j](p); //PFMs are defined from bottom to top
                             file.write(reinterpret_cast<char*>(&fvalue), sizeof(fvalue));
                         }
                     }
