@@ -52,8 +52,10 @@ inline Eigen::Vector4f vec3Tovec4(const Eigen::Vector3f &v, float w) {
     return Eigen::Vector4f(v.x(), v.y(), v.z(), w);
 }
 
-//following code is adapted from Microsoft's AirSim from https://github.com/microsoft/AirSim/blob/main/AirLib/include/common/common_utils/Utils.hpp
-// STUDENTS: IGNORE!! check whether machine is little endian
+//following two functions are adapted from Microsoft's AirSim from https://github.com/microsoft/AirSim/blob/main/AirLib/include/common/common_utils/Utils.hpp
+//   as of Jan 21, 2024
+// STUDENTS: IGNORE!!
+// check whether machine is little endian
 inline static bool isLittleEndian()
 {
     int intval = 1;
