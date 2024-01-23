@@ -19,7 +19,7 @@ public:
     Scene();
     virtual ~Scene();
 
-    static bool load(QString filename, Scene **scenePointer);
+    static bool load(QString filename, Scene **scenePointer, float imageWidth, float imageHeight);
 
     void setBVH(const BVH &bvh);
     const BVH& getBVH() const;

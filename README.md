@@ -35,19 +35,19 @@ Your path tracer must implement the following features:
 - Event splitting **(15 points)**
   - At each recursive path tracing step, separately accumulate the contributions of direct lighting and indirect lighting.
   - Be careful not to double-count light sources in both contribution terms!
-- Tone mapping **(5 points)**
-  - Your path tracer should take a scene file as input and output an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple global operator such as Equation 3 of [this paper](https://www.cs.utah.edu/docs/techreports/2002/pdf/UUCS-02-001.pdf) is fine.
-- Example images **(5 points)**
-  - You must submit images depicting at least two different scenes. These images should demonstrate every feature that your path tracer implements. You must also provide comparison images of a scene with and without direct lighting. A Cornell Box scene can be a good test-bed for different types of rendering effects; the starter code repository contains such an example scene.
-  - Submitted images should be easily viewable low dynamic range images in a format like PNG. You should try to produce the highest-resolution, highest-sample-count images you can by the submission deadline.
-- Readme **(5 points)**
-  - Additionally, you must submit a [Markdown](https://www.markdownguide.org/basic-syntax/) README file. The README file should describe how to run your path tracer (e.g. how to specify different scene file inputs). This file should list all the features your path tracer implements. It should also describe what features are demonstrated in the images you’ve submitted. These images should be embedded in the README file.
+- Tone mapping **(5 points - milestone deadline)**
+  - Your path tracer takes a scene file as input and outputs an image to disk. To produce output images, you’ll need to convert the high-dynamic range radiance values produced by the path tracer into low-dynamic range values that can be written to standard 24-bit RGB image formats such as JPEG or PNG. You’ll need a tone-mapping operator for this; a simple one such as the (extended) [Reinhard operator](https://64.github.io/tonemapping/#reinhard) is fine.
+- Submission: Output images **(6 points)**
+  - You must submit images demonstrating the functionality of your path tracer in the provided submission templates (**[submission-milestone.md](submission-milestone.md)** and **[submission-final.md](submission-final.md)**). Instructions can be found there. These must be completed by the milestone and final deadlines, respectively.
+- Submission: Implementation details **(4 points)**
+  - Complete the *Design Choices*, *Extra Features*, *Collaboration*, and *Known Bugs* sections at the bottom of [submission-final.md](submission-final.md))
 
-Successfully implementing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
+Successfully completing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
 
 ## Milestone:
 
-By the milestone deadline, you should have implemented diffuse reflection and indirect illumination.
+By the milestone deadline, you should have implemented (1) diffuse reflection, (2) indirect illumination, and (3) tone mapping, as well as filled out [submission-milestone.md](submission-milestone.md). Make sure to push your changes and submit your Github repo to Gradescope.
+
 Having these features implemented by the milestone deadline is worth **5 points**. That is to say: if you implement them correctly by the final submission deadline, but not by the milestone deadline, you'll incur a -5 point penalty to your project grade.
 Why do we do this? We want to encourage you to start early and develop good habits that will carry over to the rest of the assignments in the course (the latter of which do not have formal milestones).
 
@@ -76,10 +76,6 @@ To convert such a material to one of the 4 required types of materials for this 
 
 **You do not need to worry about making your code handle all possible types of input materials.** The only scene files your code needs to run on are the ones you design for it. So, it’s perfectly fine to ignore the case when, say, a material has both nonzero diffuse coefficient and nonzero specular coefficient, since you are not required to implement materials that combine those two effects.
 
-**Scenes for submission**
-
-The assignment spec states that you need to demonstrate your path tracer on at least two different input scenes. You could use the Cornell Box scenes included in the starting code for this purpose. Those are taken from https://casual-effects.com/data/, which contain many other obj files that you can test on. You can also build your own scenes, and we definitely encourage doing so.
-
 **Light sources**
 
 The assignment spec states that you need to support area light sources resulting in soft shadows. The recommended way to do this is to treat objects with emissive materials as area light sources. The best place in the code to look through the scene objects for emissive ones is probably in `Scene::parseTree`, which constructs a vector of scene objects before building a BVH acceleration structure out of them. You’ll also need to implement a method for sampling a point on an area light source (i.e. sampling a point on the surface of an emissive triangle mesh).
@@ -97,17 +93,17 @@ Each of the following features that you implement will earn you extra points. Th
   - Instead of generating rays from a single eye location, scatter the starting location over a lens (e.g. a disk). This produces an effect that mimics camera defocus blur.
   - The scene will be in focus only at the same depth away from the eye/lens as the virtual film plane--rays diverge as they move away from this plane, leading to defocus blur. You can control the location of the focus plane by changing the location of the virtual film plane.
   - Obviously, this is an approximation, and not a physically-based model of how cameras work. If you’re interested in how you might do that, check out [this paper](https://graphics.stanford.edu/papers/camera/) on putting a simulated camera lens system into your path tracer.
-- More advanced BRDFs **(5-10 points each)**
+- More advanced BRDFs **(5 points each)**
   - There are many other types of BRDFs you could implement to get more interesting material appearance.
   - The [Ward anisotropic BRDF](https://en.wikipedia.org/wiki/Specular_highlight#Ward_anisotropic_distribution) and the [Cook-Torrance microfacet model](https://en.wikipedia.org/wiki/Specular_highlight#Cook.E2.80.93Torrance_model) are just two possibilities.
 - Low discrepancy sampling **(10 points)**
   - The rendering problem that a path tracer tries to solve is an integration problem, and there’s nothing that says we have use random samples to estimate integrals. Rather, any set of samples that are ‘well-spaced out’ but not perfectly uniform (to avoid aliasing) ought to work. This is the idea behind low-discrepancy sampling (also known as Quasi-Monte Carlo): use an algorithm that deterministically generates random sample points that have the right properties.
   - You can find a more detailed introduction to this concept [here](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/introduction-quasi-monte-carlo).
   - Include at least one image comparing this approach to uniform random ray sampling (or stratified sampling), and describe this comparison in your README.
-- BRDF importance sampling **(10 points)**
+- BRDF importance sampling **(5 points per BRDF)**
   - When tracing a recursive ray from a surface intersection, you can choose it randomly from the hemisphere; alternatively, you can choose it in a way that's approximately proportional to the BRDF, and use importance sampling.
   - Include at least one image comparing this approach to uniform hemisphere sampling, and describe this comparison in your README.
-- Multiple importance sampling **(10 points)**
+- Multiple importance sampling **(5 points)**
   - Next event estimation separates the contributions of direct vs. indirect illumination. Instead, you can use multiple importance sampling (MIS), which provides a general procedure for combining samples drawn using different sampling strategies.
   - Check out [the chapter on MIS from Erich Veach’s thesis](https://graphics.stanford.edu/courses/cs348b-03/papers/veach-chapter9.pdf) to learn more about how it works.
   - Include at least one image comparing MIS to next event estimation, and describe this comparison in your README.
@@ -127,7 +123,7 @@ Each of the following features that you implement will earn you extra points. Th
   - This list is not meant to be exhaustive--if you’ve got another advanced feature in mind, go for it! (though you may want to ask a TA or the instructor first if you’re concerned about whether the idea is feasible)
   - You might consider looking through [a recent paper](https://www.arnoldrenderer.com/research/Arnold_TOG2018.pdf) written by the authors of the Arnold renderer for some advanced feature ideas.
 
-Any extra features you implement must be described in your README. **To get extra credit, you must also submit comparison images for each feature that you implement.**
+Any extra features you implement must be described in your README. **To get extra credit, you must also submit comparison images and brief explanations for each feature that you implement** in the submission Markdown file.
 
 You can also get extra credit for sharing a scene you’ve created with the class **(2 points)**. Post the scene file(s) and a rendering of the scene to Slack. If your path tracer is built on top of your own ray tracer and uses a different scene file format than the one used by the bare-bones ray tracer we provide, or if you’ve modified our scene file format in any way, you should also post instructions for how to read your scene file format.
 
@@ -146,16 +142,16 @@ Rendering high quality images can take a long time. Rather than make your poor l
 
 ## Submission Instructions
 
-For the milestone deadline, submit your GitHub repository to the "Path (Milestone)" assignment. **Your submission should include at least one image produced by your in-progress path tracer**, showing that you've implemented the required milestone features (diffuse reflection and indirect illumination).
+For the milestone deadline, submit your GitHub repository to the "Path (Milestone)" assignment. **Your submission should contain a filled out [submission-milestone.md](submission-milestone.md)**, showing that you've implemented the required milestone features (diffuse reflection, indirect illumination, and tone mapping).
 
-For the final deadline, submit your branch of the Github classroom repository to the “Path (Final)” assignment.
+For the final deadline, submit your repository to the “Path (Final)” assignment. **This submission should contain a filled out [submission-final.md](submission-final.md)**
 
 ## Implementation & Debugging Tips
 
-To set these command line arguments in QT, go to the Projects tab on the left, under build and run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
+To set command line arguments in QT, go to the Projects tab on the left, under build and run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
 - There are a lot of different probability calculations that go into computing the contribution of a ray to the final image. Make sure you really understand all of this math before you start trying to implement anything. You don’t want to get into the situation where your code is producing images that don’t quite look right, and all you can do is resort to aimlessly tweaking parts of the code (e.g. fiddling with constants, flipping minus signs) to try and make them look right.
 - Don’t try to implement all the required features at once. Implement them one by one, thoroughly debugging as you go.
-- It's useful to be able to look at your rendered output images _before_ you've implemented a tone mapping function. To do this, you can write your pathtracer's raw per-pixel radiance values to a high-dynamic range image format. The simplest such format is [PFM (short for Portable Float Map)](https://www.pauldebevec.com/Research/HDR/PFM/). You can also try using a library such as [tinyexr](https://github.com/syoyo/tinyexr) to read/write the industry-standard OpenEXR file format. Many different image viewing/editing apps support these formats.
+- It's useful to be able to look at your rendered output images _before_ you've implemented a tone mapping function. To do this, you can write your pathtracer's raw per-pixel radiance values to a high-dynamic range image format. The simplest such format is [PFM (short for Portable Float Map)](https://www.pauldebevec.com/Research/HDR/PFM/). We've provided a helper function called `outputPFM` in CS123Common.h that writes raw radiance values to a PFM file. MacOS has a built-in PFM viewer. If you are on windows, there are third-party viewers such as [PfmPad](https://sourceforge.net/projects/pfmpad/).
 - Path tracers can take a long time to produce an image. The first thing you should do is **make sure to compile your code in "Release" mode** (or with all compiler optimizations enabled, if you’re not using Qt Creator). To speed up your code-test-iterate cycle, you’ll want to render low-resolution images (or, small windows cut out of a larger image that focus on some region of interest). In addition, you can also parallelize your code. Using [OpenMP’s parallel for loop](http://supercomputingblog.com/openmp/tutorial-parallel-for-loops-with-openmp/) is a good option, and there is a commented out line in the starter code (pathtracer.cpp, line 21) that illustrates how to do so. **Strongly recommended!**
 - When you allocate memory, make sure to zero it out. Bugs can creep into your code from uninitialized values.
 - If you’re noticing ‘speckling’ artifacts, i.e. individual isolated pixels that look incorrect: try using an image editor to identify the coordinates of a problematic pixel (many image editors will display this information somewhere as you mouse over the image). Then, set a breakpoint in your code that only fires on that pixel, and use a debugger to step through and see what is going wrong.
@@ -181,11 +177,13 @@ The included project files should be all you need to build, so just open the pro
 
 ### How to Run
 
-The compiled application takes two command line arguments. The first argument is the path to the scene file that is being loaded to be rendered. The second argument is the path of the file that the rendered image will be written out to.
+The compiled application takes one command line argument to the relative path to the `.ini` config file. Each config file specifies the input/output paths and feature settings for the path tracer (e.g. sample count). Your program is required to respond to changes to these parameters. See [submission-milestone.md](submission-milestone.md) for guidance. Feel free to create your own `.ini` files with additional parameters as necessary, but **do not modify the provided `.ini` files**! 
 
-To set these command line arguments in Qt, go to the Projects tab on the left, under Run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
+To set this command line argument in Qt, go to the Projects tab on the left, under Run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
 
-Additional command line arguments can be added in `main.cpp`. The stencil code uses `QCommandLineParser` to parse the command line arguments, so take a look at the documentation if you want to add more arguments.
+The program will save a `.png` image to disk at the path specified in the config file. 
+
+For students using Apple chip (M1/M2), please find file /BVH/BBox_appleChip.cpp and copy it to overwrite /BVH/BBox.cpp. While is will slow down your code a bit, you can still produce results within reasonable time. 
 
 ### Code Structure
 
