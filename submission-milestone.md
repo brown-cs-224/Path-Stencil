@@ -28,7 +28,7 @@ Please do not attempt to duplicate the given reference images; we have tools to 
 
 ### Implementation Locations
 
-Please list the lines where the implementation of these features start:
+Please list the lines where the implementations of these features start:
 
 - Diffuse Reflection
 - Indirect Illumination
