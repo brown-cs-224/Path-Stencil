@@ -13,7 +13,7 @@ If you have written a ray tracer in a previous graphics course (e.g. CS 1230 her
 ## Relevant Reading
 
 - The lecture slides!
-- [The Global Illumination Compendium](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf 'The Global Illumination Compendium')
+- [The Global Illumination Compendium](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf "The Global Illumination Compendium")
 - [The Graphics Codex](http://graphicscodex.com/), a $10 rendering reference (by Brown alum Morgan McGuire)
 
 ## Requirements
@@ -40,7 +40,9 @@ Your path tracer must implement the following features:
 - Submission: Output images **(6 points)**
   - You must submit images demonstrating the functionality of your path tracer in the provided submission templates (**[submission-milestone.md](submission-milestone.md)** and **[submission-final.md](submission-final.md)**). Instructions can be found there. These must be completed by the milestone and final deadlines, respectively.
 - Submission: Implementation details **(4 points)**
-  - Complete the *Design Choices*, *Extra Features*, *Collaboration*, and *Known Bugs* sections at the bottom of [submission-final.md](submission-final.md))
+  - Complete the _Implementation Locations_ section at the bottom of [submission-milestone.md](submission-milestone.md)
+  - Complete the _Implementation Locations_, _Design Choices_, _Extra Features_, _Collaboration_, and _Known Bugs_ sections at the bottom of [submission-final.md](submission-final.md)
+  - Do **NOT** hardcode parameters present in these .ini files into your code. Failure to follow this instruction will result in point deductions.
 
 Successfully completing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
 
@@ -149,6 +151,7 @@ For the final deadline, submit your repository to the “Path (Final)” assignm
 ## Implementation & Debugging Tips
 
 To set command line arguments in QT, go to the Projects tab on the left, under build and run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
+
 - There are a lot of different probability calculations that go into computing the contribution of a ray to the final image. Make sure you really understand all of this math before you start trying to implement anything. You don’t want to get into the situation where your code is producing images that don’t quite look right, and all you can do is resort to aimlessly tweaking parts of the code (e.g. fiddling with constants, flipping minus signs) to try and make them look right.
 - Don’t try to implement all the required features at once. Implement them one by one, thoroughly debugging as you go.
 - It's useful to be able to look at your rendered output images _before_ you've implemented a tone mapping function. To do this, you can write your pathtracer's raw per-pixel radiance values to a high-dynamic range image format. The simplest such format is [PFM (short for Portable Float Map)](https://www.pauldebevec.com/Research/HDR/PFM/). We've provided a helper function called `outputPFM` in CS123Common.h that writes raw radiance values to a PFM file. MacOS has a built-in PFM viewer. If you are on windows, there are third-party viewers such as [PfmPad](https://sourceforge.net/projects/pfmpad/).
@@ -162,9 +165,11 @@ To set command line arguments in QT, go to the Projects tab on the left, under b
 ### Eigen
 
 After cloning the repository, run
+
 ```
 git submodule update --init
 ```
+
 to pull in the Eigen dependency
 
 ### Qt
@@ -177,13 +182,13 @@ The included project files should be all you need to build, so just open the pro
 
 ### How to Run
 
-The compiled application takes one command line argument to the relative path to the `.ini` config file. Each config file specifies the input/output paths and feature settings for the path tracer (e.g. sample count). Your program is required to respond to changes to these parameters. See [submission-milestone.md](submission-milestone.md) for guidance. Feel free to create your own `.ini` files with additional parameters as necessary, but **do not modify the provided `.ini` files**! 
+The compiled application takes one command line argument to the relative path to the `.ini` config file. Each config file specifies the input/output paths and feature settings for the path tracer (e.g. sample count). Your program is required to respond to changes to these parameters. See [submission-milestone.md](submission-milestone.md) for guidance. Feel free to create your own `.ini` files with additional parameters as necessary, but **do not modify the provided `.ini` files**!
 
 To set this command line argument in Qt, go to the Projects tab on the left, under Run, under your currently configured kit, click run, and you should have a screen where you can enter command line arguments to run the executable with.
 
-The program will save a `.png` image to disk at the path specified in the config file. 
+The program will save a `.png` image to disk at the path specified in the config file.
 
-For students using Apple chip (M1/M2), please find file /BVH/BBox_appleChip.cpp and copy it to overwrite /BVH/BBox.cpp. While is will slow down your code a bit, you can still produce results within reasonable time. 
+For students using Apple chip (M1/M2), please find file /BVH/BBox_appleChip.cpp and copy it to overwrite /BVH/BBox.cpp. While is will slow down your code a bit, you can still produce results within reasonable time.
 
 ### Code Structure
 
