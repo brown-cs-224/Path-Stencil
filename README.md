@@ -44,7 +44,7 @@ Your path tracer must implement the following features:
   - Complete the _Implementation Locations_, _Design Choices_, _Extra Features_, _Collaboration_, and _Known Bugs_ sections at the bottom of [submission-final.md](submission-final.md)
   - Do **NOT** hardcode parameters present in these .ini files into your code. Failure to follow this instruction will result in point deductions.
 
-Successfully completing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below)
+Successfully completing all of the requirements results in a total of **80/100 points** (a grade of B). To score **100/100** (or more!), you’ll need to implement some extra features (see "Extra Features" below). In addition, be mindful about your code's efficiency - highly inefficient code will result in point deductions.
 
 ## Milestone:
 
