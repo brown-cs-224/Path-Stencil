@@ -28,11 +28,11 @@ Please do not attempt to duplicate the given reference images; we have tools to 
 
 ### Implementation Locations
 
-Please list the lines where the implementations of these features start:
+Please link to the lines (in GitHub) where the implementations of these features start:
 
-- Diffuse Reflection
-- Indirect Illumination
-- Tone Mapping
+- [Diffuse Reflection]()
+- [Indirect Illumination]()
+- [Tone Mapping]()
 
 <!-- ### Design Choices
 

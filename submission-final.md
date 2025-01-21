@@ -30,17 +30,17 @@ Please do not attempt to duplicate the given reference images; we have tools to 
 
 ### Implementation Locations
 
-Please list the lines where the implementation of these features start:
+Please link to the lines (in GitHub) where the implementation of these features start:
 
-- Diffuse Reflection
-- Glossy Reflection
-- Mirror Reflection
-- Refraction (with Fresnel refletion)
-- Soft Shadows
-- Illumination
-- Russian Roulette path termination
-- Event Splitting
-- Tone Mapping
+- [Diffuse Reflection]()
+- [Glossy Reflection]()
+- [Mirror Reflection]()
+- [Refraction (with Fresnel refletion)]()
+- [Soft Shadows]()
+- [Illumination]()
+- [Russian Roulette path termination]()
+- [Event Splitting]()
+- [Tone Mapping]()
 - Any extra features
 
 ### Design Choices
