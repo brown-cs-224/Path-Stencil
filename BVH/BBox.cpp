@@ -42,6 +42,52 @@ float BBox::surfaceArea() const {
     return 2.f*( extent(0)*extent(2) + extent(0)*extent(1) + extent(1)*extent(2) );
 }
 
+#if defined (__ARM_NEON)
+#define loadps(mem)		vld1q_f32((const float * const)(mem))
+#define minps           vminq_f32
+#define maxps           vmaxq_f32
+#define mulps           vmulq_f32
+#define subps           vsubq_f32
+// a,b,c,d -> b,c,d,a
+#define rotatelps(ps)   vextq_f32((ps),(ps), 1)
+// low{a,b,c,d}|high{e,f,g,h} = {c,d,g,h}
+#define muxhps(low,high) vzip2q_f64((vreinterpretq_f32_f64(low)), vreinterpretq_f32_f64(high))
+static constexpr float flt_plus_inf = std::numeric_limits<float>::infinity();
+
+static constexpr float32x4_t __attribute__((aligned(16)))
+    ps_cst_plus_inf   = {  flt_plus_inf,  flt_plus_inf,  flt_plus_inf,  flt_plus_inf },
+    ps_cst_minus_inf  = { -flt_plus_inf, -flt_plus_inf, -flt_plus_inf, -flt_plus_inf },
+    ps_w_plus_inf     = { -flt_plus_inf,  -flt_plus_inf,  -flt_plus_inf,  flt_plus_inf },
+    ps_w_minus_inf    = {  flt_plus_inf,  flt_plus_inf,  flt_plus_inf, -flt_plus_inf };
+
+bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
+    Vector3 box_min(min(0), min(1), min(2));
+    Vector3 box_max(max(0), max(1), max(2));
+
+    // Unpack the origin and inverse direction of the ray
+    Vector3 ray_origin(ray.o(0), ray.o(1), ray.o(2));
+    Vector3 ray_inv_d(ray.inv_d(0), ray.inv_d(1), ray.inv_d(2));
+
+    // Calculate intersection intervals for each dimension
+    const __m128 l1 = mulps(subps(box_min.m128, ray_origin.m128), ray_inv_d.m128);
+    const __m128 l2 = mulps(subps(box_max.m128, ray_origin.m128), ray_inv_d.m128);
+    __m128 lmin = minps(l1, l2);
+    __m128 lmax = maxps(l1, l2);
+
+    lmin = minps(lmin, ps_w_minus_inf);
+    lmax = maxps(lmax, ps_w_plus_inf);
+
+    float max = vmaxvq_f32(lmin);
+    float min = vminvq_f32(lmax);
+    
+    *tnear = max;
+    *tfar  = min;
+
+    // Check if the ray intersects the bounding box
+    return min >= max && min >= 0;
+}
+
+#elif defined (__INTEL_SSE)
 // http://www.flipcode.com/archives/SSE_RayBox_Intersection_Test.shtml
 // turn those verbose intrinsics into something readable.
 #define loadps(mem)		_mm_load_ps((const float * const)(mem))
@@ -111,3 +157,5 @@ bool BBox::intersect(const Ray& ray, float *tnear, float *tfar) const {
 
     return  ret;
 }
+
+#endif
