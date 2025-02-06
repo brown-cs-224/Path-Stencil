@@ -14,7 +14,7 @@ If you have written a ray tracer in a previous graphics course (e.g. CS 1230 her
 
 - The lecture slides!
 - [The Global Illumination Compendium](https://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf "The Global Illumination Compendium")
-- [The Graphics Codex](http://graphicscodex.com/), a $10 rendering reference (by Brown alum Morgan McGuire)
+- [The Graphics Codex](http://graphicscodex.com/) (by Brown alum Morgan McGuire)
 
 ## Requirements
 
