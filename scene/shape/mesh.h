@@ -12,7 +12,7 @@
 
 #include <Eigen/StdVector>
 
-#include "util/CS123SceneData.h"
+#include "util/SceneData.h"
 
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix2f)
 EIGEN_DEFINE_STL_VECTOR_SPECIALIZATION(Eigen::Matrix3f)
@@ -53,8 +53,8 @@ public:
     Triangle* getTriangles() { return _triangles; }
 
 private:
-    // Properties fromt the scene file
-    //CS123SceneMaterial _wholeObjectMaterial;
+    // Properties from the scene file
+    // SceneMaterial _wholeObjectMaterial;
 
     // Properties from the .obj file
     std::vector<Eigen::Vector3f> _vertices;

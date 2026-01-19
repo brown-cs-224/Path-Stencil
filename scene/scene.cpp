@@ -2,9 +2,9 @@
 
 #include "shape/Sphere.h"
 
-#include <util/CS123XmlSceneParser.h>
+#include <util/XmlSceneParser.h>
 
-#include <util/CS123Common.h>
+#include <util/Common.h>
 
 #include <Eigen/Geometry>
 
@@ -33,11 +33,11 @@ Scene::~Scene()
 
 bool Scene::load(QString filename, Scene **scenePointer, float imageWidth, float imageHeight)
 {
-    CS123XmlSceneParser parser(filename.toStdString());
+    XmlSceneParser parser(filename.toStdString());
     if(!parser.parse()) {
         return false;
     }
-    CS123SceneCameraData cameraData;
+    SceneCameraData cameraData;
     parser.getCameraData(cameraData);
     BasicCamera camera(cameraData.pos.head<3>(),
                        cameraData.look.head<3>(),
@@ -47,11 +47,11 @@ bool Scene::load(QString filename, Scene **scenePointer, float imageWidth, float
     Scene *scene = new Scene;
     scene->setCamera(camera);
 
-    CS123SceneGlobalData globalData;
+    SceneGlobalData globalData;
     parser.getGlobalData(globalData);
     scene->setGlobalData(globalData);
 
-    CS123SceneLightData lightData;
+    SceneLightData lightData;
     for(int i = 0, size = parser.getNumLights(); i < size; ++i) {
         parser.getLightData(i, lightData);
         scene->addLight(lightData);
@@ -59,7 +59,7 @@ bool Scene::load(QString filename, Scene **scenePointer, float imageWidth, float
 
     QFileInfo info(filename);
     QString dir = info.path();
-    CS123SceneNode *root = parser.getRootNode();
+    SceneNode *root = parser.getRootNode();
     if(!parseTree(root, scene, dir.toStdString() + "/")) {
         return false;
     }
@@ -73,7 +73,7 @@ void Scene::setBVH(const BVH &bvh)
     m_bvh = new BVH(bvh);
 }
 
-bool Scene::parseTree(CS123SceneNode *root, Scene *scene, const std::string &baseDir)
+bool Scene::parseTree(SceneNode *root, Scene *scene, const std::string &baseDir)
 {
     std::vector<Object *> *objects = new std::vector<Object *>;
     parseNode(root, Affine3f::Identity(), objects, baseDir);
@@ -102,10 +102,10 @@ bool Scene::parseTree(CS123SceneNode *root, Scene *scene, const std::string &bas
     return true;
 }
 
-void Scene::parseNode(CS123SceneNode *node, const Affine3f &parentTransform, std::vector<Object *> *objects, const std::string &baseDir)
+void Scene::parseNode(SceneNode *node, const Affine3f &parentTransform, std::vector<Object *> *objects, const std::string &baseDir)
 {
     Affine3f transform = parentTransform;
-    for(CS123SceneTransformation *trans : node->transformations) {
+    for(SceneTransformation *trans : node->transformations) {
         switch(trans->type) {
         case TRANSFORMATION_TRANSLATE:
             transform = transform * Translation<float, 3>(trans->translate);
@@ -121,15 +121,15 @@ void Scene::parseNode(CS123SceneNode *node, const Affine3f &parentTransform, std
             break;
         }
     }
-    for(CS123ScenePrimitive *prim : node->primitives) {
+    for(ScenePrimitive *prim : node->primitives) {
         addPrimitive(prim, transform, objects, baseDir);
     }
-    for(CS123SceneNode *child : node->children) {
+    for(SceneNode *child : node->children) {
         parseNode(child, transform, objects, baseDir);
     }
 }
 
-void Scene::addPrimitive(CS123ScenePrimitive *prim, const Affine3f &transform, std::vector<Object *> *objects, const std::string &baseDir)
+void Scene::addPrimitive(ScenePrimitive *prim, const Affine3f &transform, std::vector<Object *> *objects, const std::string &baseDir)
 {
     switch(prim->type) {
     case PrimitiveType::PRIMITIVE_MESH:
@@ -251,17 +251,17 @@ void Scene::setCamera(const BasicCamera &camera)
     m_camera = camera;
 }
 
-void Scene::setGlobalData(const CS123SceneGlobalData& data)
+void Scene::setGlobalData(const SceneGlobalData& data)
 {
     m_globalData = data;
 }
 
-void Scene::addLight(const CS123SceneLightData &data)
+void Scene::addLight(const SceneLightData &data)
 {
     m_lights.push_back(data);
 }
 
-const std::vector<CS123SceneLightData> &Scene::getLights()
+const std::vector<SceneLightData> &Scene::getLights()
 {
     return m_lights;
 }

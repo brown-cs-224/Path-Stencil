@@ -7,7 +7,7 @@
 
 #include "basiccamera.h"
 
-#include "util/CS123SceneData.h"
+#include "util/SceneData.h"
 
 #include "shape/mesh.h"
 
@@ -27,10 +27,10 @@ public:
     const BasicCamera& getCamera() const;
 
     void setCamera(const BasicCamera& camera);
-    void setGlobalData(const CS123SceneGlobalData& data);
-    void addLight(const CS123SceneLightData& data);
+    void setGlobalData(const SceneGlobalData& data);
+    void addLight(const SceneLightData& data);
 
-    const std::vector<CS123SceneLightData>& getLights();
+    const std::vector<SceneLightData>& getLights();
 
     bool getIntersection(const Ray& ray, IntersectionInfo* I) const;
 
@@ -44,14 +44,14 @@ private:
 
     BasicCamera m_camera;
 
-    CS123SceneGlobalData m_globalData;
+    SceneGlobalData m_globalData;
     std::vector<Triangle*> m_emissives;
 
-    std::vector<CS123SceneLightData> m_lights;
+    std::vector<SceneLightData> m_lights;
 
-    static bool parseTree(CS123SceneNode *root, Scene *scene, const std::string& baseDir);
-    static void parseNode(CS123SceneNode *node, const Eigen::Affine3f &parentTransform, std::vector<Object *> *objects, const std::string& baseDir);
-    static void addPrimitive(CS123ScenePrimitive *prim, const Eigen::Affine3f &transform, std::vector<Object *> *objects, const std::string& baseDir);
+    static bool parseTree(SceneNode *root, Scene *scene, const std::string& baseDir);
+    static void parseNode(SceneNode *node, const Eigen::Affine3f &parentTransform, std::vector<Object *> *objects, const std::string& baseDir);
+    static void addPrimitive(ScenePrimitive *prim, const Eigen::Affine3f &transform, std::vector<Object *> *objects, const std::string& baseDir);
     static Mesh *loadMesh(std::string filePath, const Eigen::Affine3f &transform, const std::string& baseDir);
 };
 

@@ -3,7 +3,7 @@
 
 #include "Eigen/Dense"
 
-#include "util/CS123Common.h"
+#include "util/Common.h"
 
 struct Ray {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW

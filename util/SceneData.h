@@ -1,11 +1,11 @@
 /**
- * @file CS123SceneData.h
+ * @file SceneData.h
  *
  * Header file containing scene data structures.
  */
 
-#ifndef __CS123_SCENE_DATA__
-#define __CS123_SCENE_DATA__
+#ifndef __SCENE_DATA__
+#define __SCENE_DATA__
 
 #include <vector>
 #include <string>
@@ -38,10 +38,10 @@ auto as_integer(Enumeration const value)
 }
 
 // Struct to store a RGBA color in floats [0,1]
-using CS123SceneColor = Eigen::Vector4f;
+using SceneColor = Eigen::Vector4f;
 
 // Scene global color coefficients
-struct CS123SceneGlobalData  {
+struct SceneGlobalData  {
    float ka;  // global ambient coefficient
    float kd;  // global diffuse coefficient
    float ks;  // global specular coefficient
@@ -49,12 +49,12 @@ struct CS123SceneGlobalData  {
 };
 
 // Data for a single light
-struct CS123SceneLightData {
+struct SceneLightData {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    int id;
    LightType type;
 
-   CS123SceneColor color;
+   SceneColor color;
    Eigen::Vector3f function;  // Attenuation function
 
    Eigen::Vector4f pos;       // Not applicable to directional lights
@@ -68,7 +68,7 @@ struct CS123SceneLightData {
 };
 
 // Data for scene camera
-struct CS123SceneCameraData {
+struct SceneCameraData {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    Eigen::Vector4f pos;
    Eigen::Vector4f look;
@@ -82,8 +82,8 @@ struct CS123SceneCameraData {
 };
 
 // Data for file maps (ie: texture maps)
-struct CS123SceneFileMap {
-//    CS123SceneFileMap() : texid(0) {}
+struct SceneFileMap {
+//    SceneFileMap() : texid(0) {}
    bool isUsed;
    std::string filename;
    float repeatU;
@@ -98,24 +98,24 @@ struct CS123SceneFileMap {
 };
 
 // Data for scene materials
-struct CS123SceneMaterial {
+struct SceneMaterial {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    // This field specifies the diffuse color of the object. This is the color you need to use for
    // the object in sceneview. You can get away with ignoring the other color values until
    // intersect and ray.
-//   CS123SceneMaterial() {}
-   CS123SceneColor cDiffuse;
+//   SceneMaterial() {}
+   SceneColor cDiffuse;
    
-   CS123SceneColor cAmbient;
-   CS123SceneColor cReflective;
-   CS123SceneColor cSpecular;
-   CS123SceneColor cTransparent;
-   CS123SceneColor cEmissive;
+   SceneColor cAmbient;
+   SceneColor cReflective;
+   SceneColor cSpecular;
+   SceneColor cTransparent;
+   SceneColor cEmissive;
 
-   CS123SceneFileMap textureMap;
+   SceneFileMap textureMap;
    float blend;
 
-   CS123SceneFileMap bumpMap;
+   SceneFileMap bumpMap;
 
    float shininess;
 
@@ -136,16 +136,16 @@ struct CS123SceneMaterial {
    }
 };
 
-struct CS123ScenePrimitive {
+struct ScenePrimitive {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
    PrimitiveType type;
    std::string meshfile;     // Only applicable to meshes
-   CS123SceneMaterial material;
+   SceneMaterial material;
 };
 
 // Data for transforming a scene object. Aside from the TransformationType, the remaining of the
 // data in the struct is mutually exclusive.
-struct CS123SceneTransformation {
+struct SceneTransformation {
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
     TransformationType type;
 
@@ -160,12 +160,12 @@ struct CS123SceneTransformation {
 };
 
 // Structure for non-primitive scene objects
-struct CS123SceneNode {
-   std::vector<CS123SceneTransformation*> transformations;
+struct SceneNode {
+   std::vector<SceneTransformation*> transformations;
 
-   std::vector<CS123ScenePrimitive*> primitives;
+   std::vector<ScenePrimitive*> primitives;
 
-   std::vector<CS123SceneNode*> children;
+   std::vector<SceneNode*> children;
 };
 
 #endif

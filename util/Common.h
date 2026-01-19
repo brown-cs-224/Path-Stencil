@@ -1,11 +1,11 @@
 /**
- * @file CS123Common.h
+ * @file Common.h
  *
- * Contains data structures and macros commonly used in CS123.
+ * Contains data structures and macros commonly used in CS224.
  */
 #pragma once
-#ifndef __CS123COMMON_H__
-#define __CS123COMMON_H__
+#ifndef __COMMON_H__
+#define __COMMON_H__
 
 #include <math.h>
 #include <fstream>

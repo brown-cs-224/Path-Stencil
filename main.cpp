@@ -10,7 +10,7 @@
 
 #include <QImage>
 
-#include "util/CS123Common.h"
+#include "util/Common.h"
 
 int main(int argc, char *argv[])
 {

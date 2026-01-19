@@ -7,7 +7,7 @@
 #include "Ray.h"
 #include "BBox.h"
 
-#include "util/CS123SceneData.h"
+#include "util/SceneData.h"
 
 struct Object {
     Object() {
@@ -29,7 +29,7 @@ struct Object {
   //! Return the centroid for this object. (Used in BVH Sorting)
   virtual Eigen::Vector3f getCentroid() const = 0;
 
-    CS123SceneMaterial material;
+    SceneMaterial material;
 
     virtual void setTransform(const Eigen::Affine3f transform) {
         this->transform = transform;

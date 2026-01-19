@@ -27,7 +27,7 @@ add_executable(${PROJECT_NAME}
     BVH/BVH.cpp
     scene/camera.cpp
     scene/basiccamera.cpp
-    util/CS123XmlSceneParser.cpp
+    util/XmlSceneParser.cpp
     scene/shape/mesh.cpp
     scene/shape/triangle.cpp
 
@@ -42,10 +42,10 @@ add_executable(${PROJECT_NAME}
     BVH/Stopwatch.h
     scene/camera.h
     scene/basiccamera.h
-    util/CS123Common.h
-    util/CS123ISceneParser.h
-    util/CS123SceneData.h
-    util/CS123XmlSceneParser.h
+    util/Common.h
+    util/ISceneParser.h
+    util/SceneData.h
+    util/XmlSceneParser.h
     scene/shape/Sphere.h
     scene/shape/mesh.h
     scene/shape/triangle.h

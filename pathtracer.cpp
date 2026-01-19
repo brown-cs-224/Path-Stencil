@@ -4,7 +4,7 @@
 
 #include <Eigen/Dense>
 
-#include <util/CS123Common.h>
+#include <util/Common.h>
 
 using namespace Eigen;
 
