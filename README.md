@@ -92,7 +92,7 @@ Each of the following features that you implement will earn you extra points. Th
 - More advanced BRDFs **(5 points each)**
   - There are many other types of BRDFs you could implement to get more interesting material appearance.
   - The [Ward anisotropic BRDF](https://en.wikipedia.org/wiki/Specular_highlight#Ward_anisotropic_distribution) and the [Cook-Torrance microfacet model](https://en.wikipedia.org/wiki/Specular_highlight#Cook.E2.80.93Torrance_model) are just two possibilities.
-- Low discrepancy sampling **(10 points)**
+- Low discrepancy sampling **(5 points)**
   - The rendering problem that a path tracer tries to solve is an integration problem, and there’s nothing that says we have use random samples to estimate integrals. Rather, any set of samples that are ‘well-spaced out’ but not perfectly uniform (to avoid aliasing) ought to work. This is the idea behind low-discrepancy sampling (also known as Quasi-Monte Carlo): use an algorithm that deterministically generates random sample points that have the right properties.
   - You can find a more detailed introduction to this concept [here](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/monte-carlo-methods-in-practice/introduction-quasi-monte-carlo).
   - Include at least one image comparing this approach to uniform random ray sampling (or stratified sampling), and describe this comparison in your README.
@@ -153,6 +153,20 @@ To set command line arguments in QT, go to the Projects tab on the left, under b
 - When you allocate memory, make sure to zero it out. Bugs can creep into your code from uninitialized values.
 - If you’re noticing ‘speckling’ artifacts, i.e. individual isolated pixels that look incorrect: try using an image editor to identify the coordinates of a problematic pixel (many image editors will display this information somewhere as you mouse over the image). Then, set a breakpoint in your code that only fires on that pixel, and use a debugger to step through and see what is going wrong.
 - "Does this caustic look right?" The human visual system is easy to fool, and it can be hard to tell if your pathtracers are producing correct and/or unbiased results. You can compare your renders with "ground truth" images stored in example-scenes/ground_truth as you write and debug your pathtracer. These images were either rendered with the production renderer [Mitsuba](https://www.mitsuba-renderer.org/), or found [here](https://graphics.stanford.edu/~henrik/images/cbox.html).
+
+
+## Known Bugs
+
+### Segmentation fault due to incorrect recursion
+
+- Segmentation faults can arise when you handle recursion incorrectly in your code. Think of how many recursive rays you should spawn. Calling your recursive function more than once per intersection can cause rays to spawn exponentially. Be careful of how you handle recursion when dealing with multiple materials.
+
+### Black grid in final render
+
+- When sampling rays through a pixel, ensure to jitter the origin of the ray within the pixel. Sampling the center of the pixel and averaging the results gives rise to this artifact due to edge cases in the intersection logic. By jittering the ray origin within the pixel, you also produce a more unbiased output.
+
+![Grid artifact example](example-scenes/ground_truth/known_bugs/grid_artifact.png)
+
 
 ## About the Code
 
